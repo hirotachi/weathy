@@ -1,5 +1,8 @@
+import shortid from "shortid";
+
 const locationDefaultState = [
-  {city: "New York", country: "US"}
+  {id:shortid() ,city: "New York", country: "US"},
+  {id:shortid() ,city: "London", country: "UK"}
 ];
 
 export default (state = locationDefaultState, action) => {
