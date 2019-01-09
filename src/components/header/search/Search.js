@@ -19,7 +19,9 @@ class Search extends Component{
           value={this.state.search}
           type="text"
         />
-        <SearchIcon/>
+        <div>
+          <SearchIcon/>
+        </div>
       </div>
     );
   }

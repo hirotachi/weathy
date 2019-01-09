@@ -57,7 +57,7 @@ module.exports = (env) => {
         chunkFilename: "[id].css"
       })
     ],
-    devtool: isProduction ? "source-map" : "inline-cheap-source-map",
+    devtool: isProduction ? "source-map" : "cheap-eval-source-map",
     devServer: {
       contentBase: path.join(__dirname, "public")
     }
