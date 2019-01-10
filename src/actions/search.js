@@ -7,18 +7,20 @@ const client = new ApolloClient({
 });
 
 export const searchText = (query) => {
-  client.query({
-    query: gql`
-        {
-            cities(query: "${query}"){
-                name
-                country {
-                    name
-                    region
-                    abbreviation
-                }
-            }
-        }
-    `
-  }).then(res => console.log(res))
+  if (!!query && query.length > 2){
+    client.query({
+      query: gql`
+          {
+              cities(query: "${query}"){
+                  name
+                  country {
+                      name
+                      region
+                      abbreviation
+                  }
+              }
+          }
+      `
+    }).then(res => console.log(res))
+  }
 };
