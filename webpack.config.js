@@ -1,6 +1,14 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
+if(process.env.NODE_ENV === "test"){
+  require("dotenv").config({path: ".env.test"});
+}else if (process.env.NODE_ENV === "development"){
+  require("dotenv").config({path: ".env.development"});
+}
 
 module.exports = (env) => {
   const isProduction = env === "production";
@@ -55,6 +63,9 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: "styles.css",
         chunkFilename: "[id].css"
+      }),
+      new webpack.DefinePlugin({
+        "process.env.WEATHER_KEY" : JSON.stringify(process.env.WEATHER_KEY)
       })
     ],
     devtool: isProduction ? "source-map" : "cheap-eval-source-map",
