@@ -1,4 +1,4 @@
-const data = require("../countries.min.json");
+const data = require("../countries.json");
 
 
 
@@ -8,10 +8,11 @@ const resolvers = {
     countries(parent, {query}){
       let countries = [];
       data.map((country) => {
-        if(country.country.toLowerCase().includes(query.toLowerCase())){
+        if(country.name.toLowerCase().includes(query.toLowerCase())){
           countries.push(country);
         }
       });
+      console.log(countries)
       return countries;
     },
     cities(parent, {query}){

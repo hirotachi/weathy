@@ -8,8 +8,10 @@ const typeDefs = gql`
   }
   type Country {
       id: ID!
-      country: String!
+      name: String!
       cities: [City]!
+      abbreviation: String
+      region: String
   }
   type City {
       id: ID!

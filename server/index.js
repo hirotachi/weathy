@@ -12,8 +12,8 @@ const server = new ApolloServer({
   resolvers
 });
 const app = express();
-app.use(express.static(publicPath));
 app.use(cors());
+app.use(express.static(publicPath));
 server.applyMiddleware({app});
 
 const port = process.env.PORT || 3000;
@@ -24,6 +24,10 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening and graphql on ${server.graphqlPath}`);
 });
+
+
+
+
 
 
 

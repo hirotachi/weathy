@@ -20,7 +20,7 @@ class Date extends PureComponent{
     return (
       <div>
         <span>{this.state.time}</span>
-        <span>{moment().format("dddd, Do MMM 'YY")}</span>
+        <span>{moment().format("dddd, D MMM 'YY")}</span>
       </div>
     );
   }
