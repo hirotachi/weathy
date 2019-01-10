@@ -1,59 +1,47 @@
-const data = require("../countries.min");
+const data = require("../countries.min.json");
+
 
 
 
 const resolvers = {
   Query: {
     countries(parent, {query}){
-      const countries = [];
-      Object.entries(data).forEach(([key, value]) => {
-        if(key.toLowerCase().includes(query.toLowerCase())){
-          countries.push({name: key, cities: [
-            value.map(city => ({name: city, country: key}))
-            ]});
+      let countries = [];
+      data.map((country) => {
+        if(country.country.toLowerCase().includes(query.toLowerCase())){
+          countries.push(country);
         }
       });
       return countries;
     },
-    test(parent, args){
-      return "test working";
-    },
-    cities(parent, args, ctx, info){
-      const cities = [];
-      Object.entries(data).forEach(([key, value]) => {
-        value.map(city => {
-          if(city.toLowerCase().includes(args.query.toLowerCase())){
-            cities.push({name: city, country: key})
+    cities(parent, {query}){
+      let citiesResult = [];
+      data.map(({cities}) => { // iterate over countries
+        cities.map(city => { // iterate over cities
+          if(city.name.toLowerCase().includes(query.toLowerCase())){
+            citiesResult.push(city);
           }
-        })
+        });
       });
-      return cities;
+      return citiesResult;
     }
   },
-   Country : {
-    cities(parent, args, ctx, info) {
-      let cities = [];
-      Object.entries(data).forEach(([key, value]) => {
-        if(parent.name === key ){
-          value.map(city => {
-            cities.push({name: city, country: parent.name})
-          })
-        }
-      });
-      return cities;
+  Country: {
+    cities(parent, args) {
+      return data.find(country => country.id === parent.id).cities;
     }
-   },
+  },
   City: {
-    country(parent, args, ctx, info) {
-      let country = {};
-      Object.entries(data).forEach(([key, value]) => {
-        value.map(city => {
-          if(city === parent.name){
-            country = {name: key, cities: value}
+    country(parent){
+      let selectedCountry = {};
+      data.map(country => { // iterate over country
+        country.cities.map(city => { // iterate over each city to find the desired id
+          if(city.id === parent.id){
+            selectedCountry = country;
           }
-        })
+        });
       });
-      return country;
+      return selectedCountry;
     }
   }
 };

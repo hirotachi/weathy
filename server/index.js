@@ -6,12 +6,13 @@ import cors from "cors";
 import typeDefs from "./schema";
 import resolvers from "./resolvers/resolvers";
 
-const publicPath = path.join(__dirname, "public");
+const publicPath = path.join(__dirname, "..", "public");
 const server = new ApolloServer({
   typeDefs,
   resolvers
 });
 const app = express();
+app.use(express.static(publicPath));
 app.use(cors());
 server.applyMiddleware({app});
 
@@ -23,6 +24,7 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening and graphql on ${server.graphqlPath}`);
 });
+
 
 
 
