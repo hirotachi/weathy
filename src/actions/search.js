@@ -1,14 +1,22 @@
-import axios from "axios";
+import ApolloClient from "apollo-boost";
+import gql from "graphql-tag";
 
-export const beginSearch = (query) => {
-  return (dispatch) => {
 
-  }
-};
+const client = new ApolloClient({
+  uri: "http://localhost:3000/graphql"
+});
 
-const setCurrentSearchList = (searchList) => {
-  return {
-    type: "SET_SEARCH_LIST",
-    searchList
-  }
+export const searchText = (query) => {
+  client.query({
+    query: gql`
+        {
+            cities(query: "${query}"){
+                name
+                country {
+                    name
+                }
+            }
+        }
+    `
+  }).then(res => console.log(res))
 };

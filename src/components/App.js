@@ -4,6 +4,7 @@ import configureStore from "../store/configureStore";
 import Homepage from "./Homepage";
 import "../styles/styles.scss";
 
+
 const store = configureStore();
 const App = () => (
   <Provider store={store}>

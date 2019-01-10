@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {SearchIcon} from "../../icons/icons";
+import {searchText} from "../../../actions/search";
 
 
 class Search extends Component{
@@ -7,9 +8,21 @@ class Search extends Component{
     search: ""
   };
 
+  componentWillUnmount() {
+    clearTimeout(this.delaySearchResult);
+  };
+
   handleSearchChange = (e) => {
     const search = e.target.value;
     this.setState(() => ({search}));
+    clearTimeout(this.delaySearchResult);
+    this.delaySearchResult = setTimeout(() => {
+      this.startSearch(search);
+    }, 2000);
+  };
+
+  startSearch = (text) => {
+    searchText(text)
   };
   render(){
     return (

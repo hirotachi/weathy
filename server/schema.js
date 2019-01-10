@@ -1,14 +1,18 @@
-const { gql } = require('apollo-server-express');
+const {gql} = require('apollo-server-express');
 
-const typeDefs = gql`
-  type Query {
-      user: User!
+const typeDefs = gql`  
+  type Query{
+      countries(query: String): [Country]!
+      cities(query: String): [City]!
+      test : String!
   }
-  
-  type User {
-      id: ID!
+  type Country {
       name: String!
-      age: Int
+      cities: [City]!
+  }
+  type City {
+      name: String!
+      country: Country!
   }
 `;
 

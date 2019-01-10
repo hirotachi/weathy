@@ -9,7 +9,7 @@
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server --host 0.0.0.0",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
-    "start": "nodemon server/index.js --exec babel-node",
+    "start": " babel-node server/index.js",
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
@@ -25,6 +25,8 @@
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "country-json": "^1.0.7",
     "css-loader": "^2.1.0",
     "dotenv": "^6.2.0",
     "enzyme": "^3.8.0",
