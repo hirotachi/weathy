@@ -3,6 +3,7 @@ public/bundle.js
 public/bundle.js.map
 public/styles.css
 public/styles.css.map
+server/apiKeys.js
 .idea/
 
 #dependencies

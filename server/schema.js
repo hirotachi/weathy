@@ -1,22 +1,25 @@
 const {gql} = require('apollo-server-express');
 
-const typeDefs = gql`  
-  type Query{
-      countries(query: String): [Country]!
-      cities(query: String): [City]!
-      test : String!
-  }
-  type Country {
-      id: ID!
-      name: String!
-      cities: [City]!
-      abbreviation: String
-      region: String
-  }
-  type City {
-      id: ID!
-      name: String!
-      country: Country!
+const typeDefs = gql`
+    type Query{
+        weather(lon: String!, lat: String!): String!
+        search(query: String!): [Search!]!
+    }
+    type Search {
+        id: ID!
+        city: String!
+        countryCode: String!
+        country: String!
+        postcode: String
+        region: String
+        state: String
+        formatted: String!
+        stateDistrict: String
+        geometry: Geometry!
+    }
+  type Geometry{
+      lat: Float
+      lon: Float
   }
 `;
 

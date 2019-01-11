@@ -2,17 +2,18 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import shortid from "shortid";
 import {getCurrentCityWeather} from "../../../actions/weather";
-import {addLocation} from "../../../actions/locations";
+import {addLocation, setSelectedLocation} from "../../../actions/locations";
 
 
 class SearchList extends Component{
 
   handleCityClick = (city) => {
-    const {name, country} = city;
+    const {id, name, country} = city;
     const {abbreviation: countryAbbr} = country;
     this.props.dispatch(getCurrentCityWeather({name, countryAbbr}));
+    this.props.dispatch(setSelectedLocation(id));
     const checkLocationExist = this.props.locationsList.some(location => location.id === city.id);
-    if(!checkLocationExist){
+    if(!checkLocationExist){ // check if the location selected is already in list before adding
       this.props.dispatch(addLocation(city));
     }
   };

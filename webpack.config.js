@@ -65,7 +65,8 @@ module.exports = (env) => {
         chunkFilename: "[id].css"
       }),
       new webpack.DefinePlugin({
-        "process.env.WEATHER_KEY" : JSON.stringify(process.env.WEATHER_KEY)
+        "process.env.OPEN_WEATHER_KEY" : JSON.stringify(process.env.OPEN_WEATHER_KEY),
+        "process.env.DARK_SKY_KEY": JSON.stringify(process.env.DARK_SKY_KEY)
       })
     ],
     devtool: isProduction ? "source-map" : "cheap-eval-source-map",
