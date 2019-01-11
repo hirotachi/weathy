@@ -20,8 +20,10 @@ export default async (query) => {
           region,
           state_district: stateDistrict
         } = components;
+        console.log(components)
         const {lat, lng: lon} = geometry;
-        if(_type.toLowerCase() === "city"){
+        const type = _type.toLowerCase();
+        if(type === "city" || type === "state_district"){
           result.push({
             id: uuidv4(),
             city,

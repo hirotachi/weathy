@@ -8,11 +8,10 @@ import {addLocation, setSelectedLocation} from "../../../actions/locations";
 class SearchList extends Component{
 
   handleCityClick = (city) => {
-    const {id, name, country} = city;
-    const {abbreviation: countryAbbr} = country;
-    this.props.dispatch(getCurrentCityWeather({name, countryAbbr}));
+    const {id, geometry} = city;
+    this.props.dispatch(getCurrentCityWeather(geometry));
     this.props.dispatch(setSelectedLocation(id));
-    const checkLocationExist = this.props.locationsList.some(location => location.id === city.id);
+    const checkLocationExist = this.props.locationsList.some(location => location.id === id);
     if(!checkLocationExist){ // check if the location selected is already in list before adding
       this.props.dispatch(addLocation(city));
     }
@@ -25,10 +24,11 @@ class SearchList extends Component{
             <p>no search currently</p> :
             <React.Fragment>
               {
-                this.props.searchList.map(city =>
-                <div onClick={() => this.handleCityClick(city)} key={shortid()}>
-                  <p>city: {city.name}</p>
-                  <p>country: {city.country.name}</p>
+                this.props.searchList.map(location =>
+                <div onClick={() => this.handleCityClick(location)} key={shortid()}>
+                  <p>city: {location.city}</p>
+                  <p>country: {location.country}</p>
+                  <p>searchFormat: {location.formatted}</p>
                 </div>)
               }
             </React.Fragment>

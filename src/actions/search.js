@@ -25,7 +25,7 @@ export const searchText = (query) => {
             }
         `
       }).then(({data}) => {
-        console.log(data)
+        dispatch(setCurrentSearch(data.search));
       })
         .catch(err => console.log(err))
     }
