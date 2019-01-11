@@ -6,11 +6,6 @@ import weatherApi from "../weatherApi";
 
 const {darkSkyKey} = apiKeys;
 
-setInterval(() => {
-  axios.get("https://saidoudouane.herokuapp.com")
-    .catch(err => console.log(err));
-}, 300000);
-
 
 
 const resolvers = {
