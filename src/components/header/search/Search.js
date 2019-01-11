@@ -1,9 +1,11 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {SearchIcon} from "../../icons/icons";
-import {searchText} from "../../../actions/search";
+import {clearCurrentSearch, searchText} from "../../../actions/search";
+import SearchList from "./SearchList";
 
 
-class Search extends Component{
+class Search extends Component {
   state = {
     search: ""
   };
@@ -16,15 +18,21 @@ class Search extends Component{
     const search = e.target.value;
     this.setState(() => ({search}));
     clearTimeout(this.delaySearchResult);
-    this.delaySearchResult = setTimeout(() => {
-      this.startSearch(search);
-    }, 2000);
+    if(!!search){
+      this.delaySearchResult = setTimeout(() => {
+        this.startSearch(search);
+      }, 2000);
+    }else {
+      this.props.dispatch(clearCurrentSearch());
+    }
+
   };
 
   startSearch = (text) => {
-    searchText(text)
+    this.props.dispatch(searchText(text));
   };
-  render(){
+
+  render() {
     return (
       <div>
         <input
@@ -35,9 +43,12 @@ class Search extends Component{
         <div>
           <SearchIcon/>
         </div>
+        <div>
+          <SearchList/>
+        </div>
       </div>
     );
   }
 }
 
-export default Search;
+export default connect()(Search);

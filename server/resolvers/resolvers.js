@@ -12,7 +12,6 @@ const resolvers = {
           countries.push(country);
         }
       });
-      console.log(countries)
       return countries;
     },
     cities(parent, {query}){
