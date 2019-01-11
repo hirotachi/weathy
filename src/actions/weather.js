@@ -20,7 +20,6 @@ export const getCurrentCityWeather = ({name, countryAbbr}) => { // get api weath
 
       const {sunrise, sunset} = sys;
       let {speed: windSpeed} = wind;
-      console.log(windSpeed);
 
       dispatch(setCurrentCityWeather({
         weatherDescription,

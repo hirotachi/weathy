@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import Header from "./header/Header";
 import Date from "./Date";
-import Location from "./Location";
+import Location from "./locations/Location";
 import Weather from "./weather/Weather";
+import CurrentLocation from "./locations/CurrentLocation";
 
 
 class Homepage extends  Component{
@@ -10,6 +11,7 @@ class Homepage extends  Component{
     return (
       <div>
         <Header/>
+        <CurrentLocation/>
         <Date/>
         <Location/>
         <Weather/>
