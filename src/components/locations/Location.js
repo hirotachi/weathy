@@ -8,10 +8,9 @@ import {getCurrentCityWeather} from "../../actions/weather";
 class Location extends Component {
 
   handleSelectedLocation = (location) => { // set selected location by id
-    const {id, name, country} = location;
-    const {abbreviation: countryAbbr} = country;
+    const {id, geomatry} = location;
     this.props.dispatch(setSelectedLocation(id));
-    this.props.dispatch(getCurrentCityWeather({name, countryAbbr}));
+    this.props.dispatch(getCurrentCityWeather(geomatry));
   };
 
   render() {
@@ -21,8 +20,8 @@ class Location extends Component {
           this.props.locations.length > 0 &&
           this.props.locations.map(location =>
             <div key={shortid()} onClick={() => this.handleSelectedLocation(location)}>
-              <span>city: {location.name}</span>
-              <span>country: {location.country.name}</span>
+              <span>city: {location.city}</span>
+              <span>country: {location.country}</span>
             </div>)
         }
       </div>

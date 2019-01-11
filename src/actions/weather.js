@@ -17,14 +17,11 @@ export const getCurrentCityWeather = ({lon, lat}) => { // get api weather info a
               }
           }
       `
-    }).then(({data}) => console.log(data))
+    }).then(({data}) => dispatch(setCurrentCityWeather(data.currentWeather)))
     .catch(err => console.log(err))
   }
 };
 
-const getWeatherData = (lon, lat) => {
-
-};
 const setCurrentCityWeather = (weather) => {
   return {
     type: "SET_CURRENT_CITY_WEATHER",
