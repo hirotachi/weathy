@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Header from "./header/Header";
 import Date from "./Date";
 import Location from "./Location";
+import Weather from "./weather/Weather";
 
 
 class Homepage extends  Component{
@@ -11,6 +12,7 @@ class Homepage extends  Component{
         <Header/>
         <Date/>
         <Location/>
+        <Weather/>
         homepage
       </div>
     );

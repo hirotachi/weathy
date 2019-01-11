@@ -3,8 +3,10 @@ const weatherDefaultState = {
   temperature: "",
   humidity: "",
   windSpeed: "",
+  rain: "",
   sunrise: "",
-  sunset: ""
+  sunset: "",
+  code: ""
 };
 
 export default (state = weatherDefaultState, action) => {

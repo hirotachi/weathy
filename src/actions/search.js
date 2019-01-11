@@ -16,6 +16,7 @@ export const searchText = (query) => {
                     name
                     id
                     country {
+                        id
                         name
                         region
                         abbreviation
@@ -34,13 +35,13 @@ export const searchText = (query) => {
             return city.name === duplicates.name &&
               city.country.name === duplicates.country.name;
           });
-          if(!dupFound){
+          if (!dupFound) {
             cities.push(duplicates);
           }
         });
         dispatch(setCurrentSearch(cities));
       })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
   }
 };

@@ -1,12 +1,20 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import shortid from "shortid";
+import {getCurrentCityWeather} from "../../../actions/weather";
+import {addLocation} from "../../../actions/locations";
 
 
 class SearchList extends Component{
 
   handleCityClick = (city) => {
-    console.log(city.name, city.country.name)
+    const {name, country} = city;
+    const {abbreviation: countryAbbr} = country;
+    this.props.dispatch(getCurrentCityWeather({name, countryAbbr}));
+    const checkLocationExist = this.props.locationsList.some(location => location.id === city.id);
+    if(!checkLocationExist){
+      this.props.dispatch(addLocation(city));
+    }
   };
   render(){
     return (
@@ -30,7 +38,8 @@ class SearchList extends Component{
 }
 const mapStateToProps = (state) => {
   return {
-    searchList : state.search
+    searchList : state.search,
+    locationsList: state.locations.locationsList
   }
 };
 

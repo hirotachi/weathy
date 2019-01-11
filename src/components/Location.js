@@ -10,7 +10,7 @@ class Location extends Component{
         {
           this.props.locations.length > 0 &&
             this.props.locations.map(location =>
-              <p key={shortid()}>{location.city}</p>)
+              <p key={shortid()}>{location.name}</p>)
         }
       </div>
     );
@@ -19,7 +19,7 @@ class Location extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    locations: state.locations
+    locations: state.locations.locationsList
   }
 };
 export default connect(mapStateToProps)(Location);
