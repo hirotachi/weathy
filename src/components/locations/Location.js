@@ -4,22 +4,24 @@ import shortid from "shortid";
 import {setSelectedLocation} from "../../actions/locations";
 import {getCurrentCityWeather} from "../../actions/weather";
 import CurrentLocation from "./CurrentLocation";
-import Slider from "../slider/Slider";
 
 
 class Location extends PureComponent {
 
   state = {
     currentIndex: 0,
-    currentNum: 22.5
+    currentNum: 22.5,
+     firstTouch: 0
   };
 
-
+  // lifecycle =================================================
+  
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.locations.length !== prevProps.locations.length) {
       this.moveToLastLocation();
     }
   };
+  // new data handler =================================================
 
   moveToLastLocation = () => { // move to last location that was added to the locations list
     const mainNum = 55;
@@ -30,6 +32,7 @@ class Location extends PureComponent {
     }));
   };
 
+  // click handlers =================================================
   handleLocationChange = (index) => { // change translate3d upon selected location change
     const {currentIndex, currentNum} = this.state;
     const mainNum = 55;
@@ -47,11 +50,32 @@ class Location extends PureComponent {
     this.setState(() => ({currentIndex: index}));
     this.handleLocationChange(index)
   };
-
+  // touch handlers =================================================
+  handleTouchStart = (e) => {
+    const firstTouch = e.changedTouches[0].clientX;
+    this.setState(() => ({firstTouch}));
+  };
+  handleTouchEnd = (e) => {
+    const {firstTouch, currentIndex} = this.state;
+    const {locations} = this.props;
+    const currentTouch = e.changedTouches[0].clientX;
+    if(firstTouch > currentTouch){
+      if( locations[currentIndex + 1]){
+        this.handleSelectedLocation(locations[currentIndex + 1], currentIndex + 1)
+      }
+    }else if(firstTouch < currentTouch){
+      if( locations[currentIndex - 1]){
+        console.log("moveleft")
+        this.handleSelectedLocation(locations[currentIndex - 1], currentIndex - 1)
+      }
+    }
+  };
   render() {
     return (
-      <div className="locations">
-        <Slider>
+      <div className="locations"
+           onTouchStart={this.handleTouchStart}
+           onTouchEnd={this.handleTouchEnd}
+      >
           <div className="locations__container"
                style={{transform: `translate3d(${this.state.currentNum}%, 0, 0)`}}
           >
@@ -70,7 +94,6 @@ class Location extends PureComponent {
                 </div>)
             }
           </div>
-        </Slider>
         <CurrentLocation/>
       </div>
     );
