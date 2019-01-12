@@ -14,25 +14,38 @@ class Location extends PureComponent {
     currentNum: 22.5
   };
 
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.handleLocationChange(prevState);
+    if (this.props.locations.length !== prevProps.locations.length) {
+      this.moveToLastLocation();
+    }
   };
 
-  handleLocationChange = (prevState) => { // change translate3d upon selected location change
+  moveToLastLocation = () => { // move to last location that was added to the locations list
+    const mainNum = 55;
+    const calcMoveBy = mainNum * (this.props.locations.length - 1) - 22.5;
+    this.setState(() => ({
+      currentIndex: this.props.locations.length - 1,
+      currentNum: -calcMoveBy
+    }));
+  };
+
+  handleLocationChange = (index) => { // change translate3d upon selected location change
     const {currentIndex, currentNum} = this.state;
     const mainNum = 55;
-    if(currentIndex > prevState.currentIndex){
+    if (currentIndex < index) {
       this.setState(() => ({currentNum: currentNum - mainNum}));
-    }else if (currentIndex < prevState.currentIndex){
+    } else if (currentIndex > index) {
       this.setState(() => ({currentNum: currentNum + mainNum}));
     }
-};
+  };
 
   handleSelectedLocation = (location, index) => { // set selected location by id
     const {id, geometry} = location;
     this.props.dispatch(setSelectedLocation(id));
     this.props.dispatch(getCurrentCityWeather(geometry));
     this.setState(() => ({currentIndex: index}));
+    this.handleLocationChange(index)
   };
 
   render() {
@@ -47,8 +60,8 @@ class Location extends PureComponent {
               this.props.locations.map((location, index) =>
                 <div
                   className={`locations__city ${this.state.currentIndex === index ? "active" : ""}`}
-                     key={shortid()}
-                     onClick={() => this.handleSelectedLocation(location, index)}
+                  key={shortid()}
+                  onClick={() => this.handleSelectedLocation(location, index)}
                 >
                   {!!location.city ?
                     <span className="locations__city--name">{location.city}</span> :
@@ -64,9 +77,15 @@ class Location extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    locations: state.locations.locationsList
-  }
-};
-export default connect(mapStateToProps)(Location);
+const
+  mapStateToProps = (state) => {
+    return {
+      locations: state.locations.locationsList
+    }
+  };
+export default connect(mapStateToProps)
+
+(
+  Location
+)
+;

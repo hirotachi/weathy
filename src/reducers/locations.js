@@ -31,36 +31,6 @@ const locationsDefaultState = {
         lat: 35.6828387,
         lon: 139.7594549
       }
-    },
-    {
-      id: uuidv4(),
-      city: "Tokyo",
-      country: "Japan",
-      state: "Tokyo",
-      geometry: {
-        lat: 35.6828387,
-        lon: 139.7594549
-      }
-    },
-    {
-      id: uuidv4(),
-      city: "Tokyo",
-      country: "Japan",
-      state: "Tokyo",
-      geometry: {
-        lat: 35.6828387,
-        lon: 139.7594549
-      }
-    },
-    {
-      id: uuidv4(),
-      city: "Tokyo",
-      country: "Japan",
-      state: "Tokyo",
-      geometry: {
-        lat: 35.6828387,
-        lon: 139.7594549
-      }
     }
   ],
   selectedLocation: {
