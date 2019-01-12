@@ -15,7 +15,7 @@ class Location extends PureComponent {
   };
 
   // lifecycle =================================================
-  
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.locations.length !== prevProps.locations.length) {
       this.moveToLastLocation();
@@ -65,7 +65,6 @@ class Location extends PureComponent {
       }
     }else if(firstTouch < currentTouch){
       if( locations[currentIndex - 1]){
-        console.log("moveleft")
         this.handleSelectedLocation(locations[currentIndex - 1], currentIndex - 1)
       }
     }
