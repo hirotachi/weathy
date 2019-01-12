@@ -17,6 +17,7 @@ const typeDefs = gql`
         formatted: String
         stateDistrict: String
         geometry: Geometry
+        currentWeather: Weather!
     }
   type Geometry{
       lat: Float

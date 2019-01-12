@@ -14,7 +14,6 @@ const resolvers = {
        return geoLocator(query);
     },
     currentWeather(parent, args){
-      console.log(args)
       return weatherApi("currently", args);
     },
     weather(parent, {lat, lon}){
@@ -24,6 +23,11 @@ const resolvers = {
           return JSON.stringify(data)
         })
         .catch(err => console.log(err));
+    }
+  },
+  Search: {
+    currentWeather(parent, args){
+      return weatherApi("currently", parent.geometry)
     }
   }
 };

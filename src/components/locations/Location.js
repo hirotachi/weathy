@@ -8,9 +8,9 @@ import {getCurrentCityWeather} from "../../actions/weather";
 class Location extends Component {
 
   handleSelectedLocation = (location) => { // set selected location by id
-    const {id, geomatry} = location;
+    const {id, geometry} = location;
     this.props.dispatch(setSelectedLocation(id));
-    this.props.dispatch(getCurrentCityWeather(geomatry));
+    this.props.dispatch(getCurrentCityWeather(geometry));
   };
 
   render() {
