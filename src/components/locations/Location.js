@@ -1,32 +1,64 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import shortid from "shortid";
 import {setSelectedLocation} from "../../actions/locations";
 import {getCurrentCityWeather} from "../../actions/weather";
+import CurrentLocation from "./CurrentLocation";
+import Slider from "../slider/Slider";
 
 
-class Location extends Component {
+class Location extends PureComponent {
 
-  handleSelectedLocation = (location) => { // set selected location by id
+  state = {
+    currentIndex: 0,
+    currentNum: 22.5
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.handleLocationChange(prevState);
+  };
+
+  handleLocationChange = (prevState) => { // change translate3d upon selected location change
+    const {currentIndex, currentNum} = this.state;
+    const mainNum = 55;
+    if(currentIndex > prevState.currentIndex){
+      this.setState(() => ({currentNum: currentNum - mainNum}));
+    }else if (currentIndex < prevState.currentIndex){
+      this.setState(() => ({currentNum: currentNum + mainNum}));
+    }
+};
+
+  handleSelectedLocation = (location, index) => { // set selected location by id
     const {id, geometry} = location;
     this.props.dispatch(setSelectedLocation(id));
     this.props.dispatch(getCurrentCityWeather(geometry));
+    this.setState(() => ({currentIndex: index}));
   };
 
   render() {
     return (
-      <div>
-        {
-          this.props.locations.length > 0 &&
-          this.props.locations.map(location =>
-            <div key={shortid()} onClick={() => this.handleSelectedLocation(location)}>
-              {!!location.city ?
-                <span>city: {location.city}</span> :
-                <span> state: {location.state}</span>
-              }
-              <span>country: {location.country}</span>
-            </div>)
-        }
+      <div className="locations">
+        <Slider>
+          <div className="locations__container"
+               style={{transform: `translate3d(${this.state.currentNum}%, 0, 0)`}}
+          >
+            {
+              this.props.locations.length > 0 &&
+              this.props.locations.map((location, index) =>
+                <div
+                  className={`locations__city ${this.state.currentIndex === index ? "active" : ""}`}
+                     key={shortid()}
+                     onClick={() => this.handleSelectedLocation(location, index)}
+                >
+                  {!!location.city ?
+                    <span className="locations__city--name">{location.city}</span> :
+                    <span className="location__city--state">{location.state}</span>
+                  }
+                </div>)
+            }
+          </div>
+        </Slider>
+        <CurrentLocation/>
       </div>
     );
   }

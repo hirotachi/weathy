@@ -16,18 +16,11 @@ class CurrentLocation extends Component {
 
   render(){
     return(
-      <div>
-        selected location
+      <React.Fragment>
         {this.props.location &&
-        <React.Fragment>
-          {
-            !!this.props.location.city ?
-              <p>{this.props.location.city}</p> :
-              <p>{this.props.location.state}</p>
-          }
-        </React.Fragment>
+          <p className="locations__country">{this.props.location.country}</p>
         }
-      </div>
+      </React.Fragment>
     );
   }
 }
