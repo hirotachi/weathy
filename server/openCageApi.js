@@ -22,7 +22,7 @@ export default async (query) => {
         } = components;
         const {lat, lng: lon} = geometry;
         const type = _type.toLowerCase();
-        if(type === "city"){
+        if(type === "city" || type === "state_district"){
           result.push({
             id: uuidv4(),
             city,

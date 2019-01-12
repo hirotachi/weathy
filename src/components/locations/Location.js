@@ -20,7 +20,10 @@ class Location extends Component {
           this.props.locations.length > 0 &&
           this.props.locations.map(location =>
             <div key={shortid()} onClick={() => this.handleSelectedLocation(location)}>
-              <span>city: {location.city}</span>
+              {!!location.city ?
+                <span>city: {location.city}</span> :
+                <span> state: {location.state}</span>
+              }
               <span>country: {location.country}</span>
             </div>)
         }

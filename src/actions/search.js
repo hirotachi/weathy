@@ -17,6 +17,7 @@ export const searchText = (query) => {
                     city
                     country
                     formatted
+                    state
                     geometry{
                         lat
                         lon

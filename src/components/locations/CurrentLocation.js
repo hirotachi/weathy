@@ -9,7 +9,14 @@ class CurrentLocation extends Component {
       <div>
         selected location
         {this.props.location &&
-        <p>{this.props.location.name}</p>}
+        <React.Fragment>
+          {
+            !!this.props.location.city ?
+              <p>{this.props.location.city}</p> :
+              <p>{this.props.location.state}</p>
+          }
+        </React.Fragment>
+        }
       </div>
     );
   }
