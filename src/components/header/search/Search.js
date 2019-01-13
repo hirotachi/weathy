@@ -7,11 +7,19 @@ import SearchList from "./SearchList";
 
 class Search extends Component {
   state = {
-    search: ""
+    search: "",
+    focused: false
   };
 
   componentWillUnmount() {
     clearTimeout(this.delaySearchResult);
+  };
+
+  focusInput = () => {
+    this.setState(() => ({focused: true}));
+  };
+  blurInput = () => {
+    this.setState(() => ({focused: false}));
   };
 
   handleSearchChange = (e) => {
@@ -34,18 +42,19 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          onChange={this.handleSearchChange}
-          value={this.state.search}
-          type="text"
-        />
-        <div>
+      <div className="search">
+        <div className="search__input">
+          <input
+            onChange={this.handleSearchChange}
+            value={this.state.search}
+            type="text"
+            placeholder="City, Zip code"
+            onFocus={this.focusInput}
+            onBlur={this.blurInput}
+          />
+          <SearchList text={this.state.search} focused={this.state.focused}/>
+        </div>
           <SearchIcon/>
-        </div>
-        <div>
-          <SearchList/>
-        </div>
       </div>
     );
   }

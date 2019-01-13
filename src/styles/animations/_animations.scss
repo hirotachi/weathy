@@ -44,7 +44,8 @@
 //====================
 .fade{
   &-out{
-    animation: fadeOut ease-in-out forwards;
+    opacity: 1;
+    animation: fadeOut .5s ease-in-out forwards;
     &-right{
       animation: fadeOutSlideRight ease-in-out forwards;
     }
@@ -53,7 +54,8 @@
     }
   }
   &-in{
-    animation: fadeIn ease-in-out forwards;
+    opacity: 0;
+    animation: fadeIn .5s ease-in-out forwards;
     &-right{
       opacity: 0;
       animation: fadeInSlideOriginal .5s ease-in-out forwards;

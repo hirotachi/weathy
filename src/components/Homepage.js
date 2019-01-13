@@ -10,8 +10,20 @@ class Homepage extends  Component{
     return (
       <div>
         <Header/>
-        <Date/>
-        <Location/>
+        {
+          window.matchMedia("min-width: 480px").matches ?
+            <React.Fragment>
+              <Location/>
+              <Date/>
+            </React.Fragment> :
+            <React.Fragment>
+              <Date/>
+              <Location/>
+            </React.Fragment>
+        }
+
+        {console.log(window.matchMedia("(max-width: 480px)").matches)}
+
         <Weather/>
       </div>
     );

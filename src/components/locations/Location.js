@@ -11,7 +11,7 @@ class Location extends PureComponent {
   state = {
     currentIndex: 0,
     currentNum: 22.5,
-     firstTouch: 0
+    firstTouch: 0
   };
 
   // lifecycle =================================================
@@ -21,6 +21,7 @@ class Location extends PureComponent {
       this.moveToLastLocation();
     }
   };
+
   // new data handler =================================================
 
   moveToLastLocation = () => { // move to last location that was added to the locations list
@@ -59,40 +60,46 @@ class Location extends PureComponent {
     const {firstTouch, currentIndex} = this.state;
     const {locations} = this.props;
     const currentTouch = e.changedTouches[0].clientX;
-    if(firstTouch > currentTouch){
-      if( locations[currentIndex + 1]){
+    if (firstTouch > currentTouch) {
+      if (locations[currentIndex + 1]) {
         this.handleSelectedLocation(locations[currentIndex + 1], currentIndex + 1)
       }
-    }else if(firstTouch < currentTouch){
-      if( locations[currentIndex - 1]){
+    } else if (firstTouch < currentTouch) {
+      if (locations[currentIndex - 1]) {
         this.handleSelectedLocation(locations[currentIndex - 1], currentIndex - 1)
       }
     }
   };
+
   render() {
     return (
       <div className="locations"
            onTouchStart={this.handleTouchStart}
            onTouchEnd={this.handleTouchEnd}
       >
-          <div className="locations__container"
-               style={{transform: `translate3d(${this.state.currentNum}%, 0, 0)`}}
-          >
-            {
-              this.props.locations.length > 0 &&
-              this.props.locations.map((location, index) =>
-                <div
-                  className={`locations__city ${this.state.currentIndex === index ? "active" : ""}`}
-                  key={shortid()}
-                  onClick={() => this.handleSelectedLocation(location, index)}
-                >
-                  {!!location.city ?
-                    <span className="locations__city--name">{location.city}</span> :
-                    <span className="location__city--state">{location.state}</span>
+        <div className="locations__container"
+             style={{transform: `translate3d(${this.state.currentNum}%, 0, 0)`}}
+        >
+          {
+            this.props.locations.length > 0 &&
+            this.props.locations.map((location, index) =>
+              <div
+                className={`locations__city ${this.state.currentIndex === index ? "active" : ""}`}
+                key={shortid()}
+                onClick={() => this.handleSelectedLocation(location, index)}
+              >
+                {!!location.city ?
+                  <span className="locations__city--name">{
+                    location.city.length > 12 ?
+                      location.city.split(" ")[0] :
+                      location.city
                   }
-                </div>)
-            }
-          </div>
+                    </span> :
+                  <span className="location__city--state">{location.state}</span>
+                }
+              </div>)
+          }
+        </div>
         <CurrentLocation/>
       </div>
     );

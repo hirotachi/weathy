@@ -55,7 +55,6 @@ class CurrentLocation extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // location: selectLocation(state.locations.locationsList, state.locations.selectedLocation.id),
     locations: state.locations.locationsList,
     selectedLocation: state.locations.selectedLocation
   }
