@@ -6,12 +6,30 @@ import Weather from "./weather/Weather";
 
 
 class Homepage extends  Component{
+  state = {
+    mobile: false
+  };
+
+  componentDidMount() {
+    window.addEventListener("resize", this.checkMedia);
+    this.checkMedia();
+  };
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.checkMedia);
+  };
+
+
+  checkMedia = () => { // change state when window is resized
+    const mobile = window.matchMedia("(max-width: 480px)").matches;
+    this.setState(() => ({mobile}));
+  };
+
   render(){
     return (
       <div>
         <Header/>
         {
-          window.matchMedia("min-width: 480px").matches ?
+          this.state.mobile ?
             <React.Fragment>
               <Location/>
               <Date/>
@@ -21,9 +39,6 @@ class Homepage extends  Component{
               <Location/>
             </React.Fragment>
         }
-
-        {console.log(window.matchMedia("(max-width: 480px)").matches)}
-
         <Weather/>
       </div>
     );

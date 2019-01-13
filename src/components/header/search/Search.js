@@ -13,13 +13,16 @@ class Search extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.delaySearchResult);
+    clearTimeout(this.delaySearchBlur);
   };
 
   focusInput = () => {
     this.setState(() => ({focused: true}));
   };
   blurInput = () => {
+    this.delaySearchBlur = setTimeout(() => {
     this.setState(() => ({focused: false}));
+    }, 100)
   };
 
   handleSearchChange = (e) => {
