@@ -2,12 +2,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import shortid from "shortid";
 import {setSelectedLocation} from "../../actions/locations";
+import {getCurrentCityWeather} from "../../actions/weather";
 
 
 class CurrentLocation extends Component {
 
   componentDidMount() { // set initial country on the redux store
     this.props.dispatch(setSelectedLocation(this.props.locations[0].id));
+    this.props.dispatch(getCurrentCityWeather(this.props.locations[0].geometry))
   };
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {

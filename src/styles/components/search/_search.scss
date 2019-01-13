@@ -1,5 +1,4 @@
 .search{
-  background-color: green;
   &__input{
     position: relative;
     display: flex;
@@ -35,5 +34,21 @@
     display: flex;
     border-bottom: 1px solid #eee;
     color: $color-black;
+  }
+  &__icon{
+    position: absolute;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    top: 1%;
+    left: 4%;
+    display: inline-block;
+    svg{
+      height: 4rem;
+      width: 4rem;
+      fill: $color-white;
+    }
   }
 }
