@@ -13,7 +13,6 @@ class Homepage extends  Component{
         <Date/>
         <Location/>
         <Weather/>
-        homepage
       </div>
     );
   }

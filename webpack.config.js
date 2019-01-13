@@ -43,6 +43,7 @@ module.exports = (env) => {
               }
             }
           ],
+          exclude: "/node_modules/",
           test: /\.s?css$/
         }, {
           test: /\.svg$/,

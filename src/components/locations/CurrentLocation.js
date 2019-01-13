@@ -1,33 +1,62 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import selectLocation from "../../selectors/selectLocation";
+import shortid from "shortid";
 import {setSelectedLocation} from "../../actions/locations";
-import {getCurrentCityWeather} from "../../actions/weather";
 
 
 class CurrentLocation extends Component {
 
-  componentDidMount() {
-    if(!this.props.selectedLocation.id){
-      this.props.dispatch(setSelectedLocation(this.props.location.id));
-      this.props.dispatch(getCurrentCityWeather(this.props.location.geometry));
+  componentDidMount() { // set initial country on the redux store
+    this.props.dispatch(setSelectedLocation(this.props.locations[0].id));
+  };
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return nextProps.selectedLocation.id !== this.props.selectedLocation.id;
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.selectedLocation.id !== this.props.selectedLocation.id){
+      this.slideCountryList();
     }
   };
 
+  slideCountryList = () => { // returns the percentage that country list slider moves by depending on index
+    let currentIndex = 0;
+    this.props.locations.map((location, index) => {
+      if(location.id === this.props.selectedLocation.id){
+        currentIndex = index * 100;
+      }
+    });
+    return currentIndex;
+  };
+
+
   render(){
     return(
-      <React.Fragment>
-        {this.props.location &&
-          <p className="locations__country">{this.props.location.country}</p>
+      <div className="locations__country">
+        {this.props.locations &&
+        <div className="locations__country--list"
+             style={{transform: `translate3d(-${this.slideCountryList()}%, 0, 0)`}}>
+          {this.props.locations.map((location) =>
+              <p key={shortid()}
+                 className={`
+                 ${location.id  === this.props.selectedLocation.id ? "active-country" : ""}
+                 `}>
+                {location.country}
+              </p>
+            )
+          }
+        </div>
         }
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    location: selectLocation(state.locations.locationsList, state.locations.selectedLocation.id),
+    // location: selectLocation(state.locations.locationsList, state.locations.selectedLocation.id),
+    locations: state.locations.locationsList,
     selectedLocation: state.locations.selectedLocation
   }
 };
