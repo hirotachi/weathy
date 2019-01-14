@@ -8,6 +8,12 @@
     transform: translate3d(22.5%,0,0);
     transition: transform .5s ease-in-out;
     cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
   }
   &__city{
     width: 55%;

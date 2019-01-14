@@ -45,7 +45,7 @@ class SearchList extends Component {
       <div className="search__list"
            style={{height: `${!!this.props.text ? this.sizeSearchList() : "0"}`}}>
         {
-          this.props.text && <div
+          this.props.text && this.props.focused && <div
             style={{color: "black"}}
             className={`${this.props.searchList.length > 0 ? "fade-out" : "fade-in"} `}>loading ...</div>
         }
