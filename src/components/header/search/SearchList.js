@@ -8,6 +8,18 @@ import {addLocation, setSelectedLocation} from "../../../actions/locations";
 class SearchList extends Component {
 
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(this.props.searchList.length > 0){
+      this.styleLoading();
+    }
+  };
+
+  styleLoading = () => { // style loading bars accordingly
+    const loader = document.querySelector(".search__load");
+    if(loader){
+      loader.style.display = "none";
+    }
+  };
 
   handleCityClick = (city) => {
     const {id, geometry} = city;
@@ -46,8 +58,11 @@ class SearchList extends Component {
            style={{height: `${!!this.props.text ? this.sizeSearchList() : "0"}`}}>
         {
           this.props.text && this.props.focused && <div
-            style={{color: "black"}}
-            className={`${this.props.searchList.length > 0 ? "fade-out" : "fade-in"} `}>loading ...</div>
+            className={`search__load ${this.props.searchList.length > 0 ? "fade-out" : "fade-in"} `}>
+            <span className="search__load--icons"/>
+            <span className="search__load--icons"/>
+            <span className="search__load--icons"/>
+          </div>
         }
         {
           this.props.focused &&
