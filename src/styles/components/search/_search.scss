@@ -1,12 +1,34 @@
 .search{
+  position: absolute;
+  height: 4rem;
+  width: 85%;
+  top: 2%;
+  left: 0;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  @media (min-width: $mobileL-bp){
+    width: 0;
+    left: unset;
+    right: 7%;
+    top: 3%;
+  }
+  @media (max-width: $tablet-bp) and (min-width: $mobileL-bp){
+    top: 2%;
+  }
+  @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape){
+    top: 3%;
+  }
   &__input{
-    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
     &--bar{
+      font-size: 2rem;
       padding: 1rem;
-      padding-left: 4rem;
+      padding-left: 5rem;
       border-radius: 2rem;
       border: 1px solid black;
       width: 0;
@@ -16,12 +38,6 @@
       -ms-transition: all .5s ease-in-out;
       -o-transition: all .5s ease-in-out;
       transition: all .5s ease-in-out;
-      &::placeholder{
-        opacity: 0;
-        -webkit-animation: fadeIn .5s .5s ease-in-out forwards;
-        -o-animation: fadeIn .5s .5s ease-in-out forwards;
-        animation: fadeIn .5s .5s ease-in-out forwards;
-      }
       &:focus{
         outline: none;
       }
@@ -29,11 +45,11 @@
   }
   &__list{
     position: absolute;
-    top: 90%;
+    top: 95%;
     left: 8%;
     background-color: white;
     z-index: 2;
-    width: 80%;
+    width: 95%;
     padding: 0 1rem;
     -webkit-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
@@ -49,13 +65,14 @@
     color: $color-black;
   }
   &__icon{
+    cursor: pointer;
     position: absolute;
     -webkit-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
     -ms-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
-    top: 1%;
+    top: 2%;
     left: 5%;
     display: inline-block;
     svg{

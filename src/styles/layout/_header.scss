@@ -1,7 +1,10 @@
 .header{
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  height: 7rem;
+  @media (min-width: $mobileL-bp){
+    padding: 0 2rem;
+  }
   &__logo{
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -13,5 +16,9 @@
     -ms-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
+    margin: 0 auto;
+    @media (min-width: $mobileL-bp){
+      margin: 0;
+    }
   }
 }

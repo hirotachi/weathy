@@ -89,7 +89,7 @@
   }
   &-in{
     opacity: 0;
-    animation: fadeIn .5s ease-in-out forwards;
+    animation: fadeIn .5s .5s ease-in-out forwards;
     &-original{
       -webkit-transform: translate3d(0, 0, 0);
       -moz-transform: translate3d(0, 0, 0);
