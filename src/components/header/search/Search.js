@@ -72,8 +72,11 @@ class Search extends Component {
 
   animateSearchBar = (command) => { // animate search bar upon open or close
     const input = document.querySelector(".search__input--bar");
+    const searchIcon = document.querySelector(".search__icon svg");
     if (command === "open") {
       input.style.animation = "ShowInput .5s ease-in-out forwards";
+      searchIcon.style.fill = "black";
+      searchIcon.style.width = "3rem";
     }else if (command === "close"){
       input.removeAttribute("style");
       input.style.width = "100%";
@@ -81,6 +84,7 @@ class Search extends Component {
       this.delay(() => {
         input.style.width = "0";
         input.style.opacity = 1;
+        searchIcon.removeAttribute("style");
       }, 100);
     }
   };

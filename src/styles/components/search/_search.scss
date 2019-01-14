@@ -56,12 +56,17 @@
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
     top: 1%;
-    left: 4%;
+    left: 5%;
     display: inline-block;
     svg{
       height: 4rem;
       width: 4rem;
       fill: $color-white;
+      -webkit-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -ms-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
     }
   }
 }
