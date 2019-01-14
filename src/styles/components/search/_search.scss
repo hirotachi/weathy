@@ -4,11 +4,24 @@
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
-    input{
+    &--bar{
       padding: 1rem;
       padding-left: 4rem;
       border-radius: 2rem;
       border: 1px solid black;
+      width: 0;
+      opacity: 0;
+      -webkit-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -ms-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      &::placeholder{
+        opacity: 0;
+        -webkit-animation: fadeIn .5s .5s ease-in-out forwards;
+        -o-animation: fadeIn .5s .5s ease-in-out forwards;
+        animation: fadeIn .5s .5s ease-in-out forwards;
+      }
       &:focus{
         outline: none;
       }
@@ -50,5 +63,15 @@
       width: 4rem;
       fill: $color-white;
     }
+  }
+}
+
+@keyframes ShowInput {
+  30%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 1;
+    width: 100%;
   }
 }

@@ -14,23 +14,22 @@ class Search extends Component {
 
   // lifeCycle==========================================
 
+
   componentWillUnmount() {
     clearTimeout(this.delaySearchResult);
-    clearTimeout(this.delaySearchBlur);
-    clearTimeout(this.delayShowSearchBar);
+    clearTimeout(this.delayAction);
   };
+
   // input bar list animation handling==========================================
   focusInput = () => {
     this.setState(() => ({focused: true}));
   };
   blurInput = () => {
-    this.delaySearchBlur = setTimeout(() => {
-      this.setState(() => ({focused: false}));
-    }, 100)
+    this.delay(() => this.setState(() => ({focused: false})), 100);
   };
 
   // input handlers========================================
-  handleSearchChange = (e) => {
+  handleSearchChange = (e) => { // delay call to api while typing
     const search = e.target.value;
     this.setState(() => ({search}));
     clearTimeout(this.delaySearchResult);
@@ -45,31 +44,52 @@ class Search extends Component {
   };
   // search bar show handling========================================
   handleOpenSearchBar = () => {
-    this.delayShowSearchBar = setTimeout(() => {
-      this.setState(() => ({show: !this.state.show}));
-    }, 500);
-    this.AnimateLogo();
+    if(!this.state.show){
+      this.delay(() => {
+        this.setState(() => ({show: !this.state.show}));
+        this.animateSearchBar("open");
+      }, 500);
+    }else if (this.state.show) {
+      this.animateSearchBar("close");
+      this.delay(() => this.setState(() => ({show: !this.state.show})), 500);
+    }
+    this.animateLogo();
   };
   // dispatch search========================================
   startSearch = (text) => {
     this.props.dispatch(searchText(text));
   };
   // logo animation handling==============================================
-  AnimateLogo = () => {
+  animateLogo = () => {
     const logo = document.querySelector(".header__logo");
     if(!this.state.show){
       logo.style.transform = "translate3d(0, -100%, 0)";
       logo.style.opacity = 0;
     }else {
-      logo.removeAttribute("style")
+      this.delay(() => logo.removeAttribute("style"), 500);
     }
   };
 
+  animateSearchBar = (command) => { // animate search bar upon open or close
+    const input = document.querySelector(".search__input--bar");
+    if (command === "open") {
+      input.style.animation = "ShowInput .5s ease-in-out forwards";
+    }else if (command === "close"){
+      input.removeAttribute("style");
+      input.style.width = "100%";
+      input.style.opacity = 1;
+      this.delay(() => {
+        input.style.width = "0";
+        input.style.opacity = 1;
+      }, 100);
+    }
+  };
+
+  delay = (func, time) => { // delays functions
+    this.delayAction = setTimeout(func, time);
+  };
+
   //======================================================================
-
-
-
-
 
 
   render() {
@@ -87,6 +107,7 @@ class Search extends Component {
               onFocus={this.focusInput}
               onBlur={this.blurInput}
               autoFocus={true}
+              className="search__input--bar"
             />
           }
           <SearchList text={this.state.search} focused={this.state.focused}/>
