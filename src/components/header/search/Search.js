@@ -14,6 +14,11 @@ class Search extends Component {
 
   // lifeCycle==========================================
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    window.onpopstate = () => {
+      this.handleOpenSearchBar();
+    };
+  }
 
   componentWillUnmount() {
     clearTimeout(this.delaySearchResult);
@@ -44,12 +49,17 @@ class Search extends Component {
   };
   // search bar show handling========================================
   handleOpenSearchBar = () => {
+    const {history, location} = this.props.router;
     if(!this.state.show){
       this.delay(() => {
+        history.push("/search");
         this.setState(() => ({show: !this.state.show}));
         this.animateSearchBar("open");
       }, 500);
     }else if (this.state.show) {
+      if(location.pathname === "/search"){
+        history.push("/")
+      }
       this.animateSearchBar("close");
       this.delay(() => this.setState(() => ({show: !this.state.show})), 500);
     }
@@ -99,7 +109,6 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-
         <div className="search__input">
           {
             this.state.show &&

@@ -1,9 +1,9 @@
 import React from "react";
 import Search from "./search/Search";
 
-const Header = () => (
+const Header = (props) => (
   <div className="header">
-    <Search/>
+    <Search router={props.router}/>
     <h3 className="header__logo">Weathy</h3>
   </div>
 );

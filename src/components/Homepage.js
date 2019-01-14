@@ -27,7 +27,7 @@ class Homepage extends  Component{
   render(){
     return (
       <div>
-        <Header/>
+        <Header router={this.props}/>
         {
           this.state.mobile ?
             <React.Fragment>
