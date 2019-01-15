@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   BD: "Bangladesh",
   BE: "Belgium",
   BF: "Burkina Faso",
@@ -249,4 +249,4 @@ export default {
   UA: "Ukraine",
   QA: "Qatar",
   MZ: "Mozambique"
-}
+};

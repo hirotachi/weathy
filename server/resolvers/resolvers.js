@@ -1,8 +1,8 @@
-import axios from "axios";
+const axios = require("axios");
 const data = require("../countries.json");
-import apiKeys from "../apiKeys";
-import geoLocator from "../openCageApi";
-import weatherApi from "../weatherApi";
+const apiKeys = require("../apiKeys");
+const geoLocator = require("../openCageApi");
+const weatherApi = require("../weatherApi");
 
 const {darkSkyKey} = apiKeys;
 
@@ -32,4 +32,4 @@ const resolvers = {
   }
 };
 
-export default resolvers;
+module.exports= resolvers;

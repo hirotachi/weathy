@@ -1,6 +1,6 @@
-import fs from "fs";
-import abr from "./abr";
-import uuidv4 from "uuid/v4";
+const fs = require("fs");
+const abr = require("./abr");
+const uuidv4 = require("uuid/v4");
 const currentData = require("./countries.min");
 
 

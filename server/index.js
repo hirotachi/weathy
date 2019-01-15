@@ -1,10 +1,10 @@
-import express from "express";
-import {ApolloServer} from "apollo-server-express";
-import path from "path";
-import cors from "cors";
+const express = require("express");
+const {ApolloServer} = require("apollo-server-express");
+const path = require("path");
+const cors = require("cors");
 
-import typeDefs from "./schema";
-import resolvers from "./resolvers/resolvers";
+const typeDefs = require("./schema");
+const resolvers = require("./resolvers/resolvers");
 
 const publicPath = path.join(__dirname, "..", "public");
 const server = new ApolloServer({

@@ -1,10 +1,10 @@
-import axios from "axios";
-import apiKeys from "./apiKeys";
+const axios = require("axios");
+const apiKeys = require("./apiKeys");
 
 
 const {darkSkyKey} = process.env.DARK_SKY_KEY || apiKeys;
 
-export default async (command, {lat, lon}) => {
+module.exports = async (command, {lat, lon}) => {
   let weather = {};
   const apiRequest = `https://api.darksky.net/forecast/${darkSkyKey}/${lat},${lon}?units=ca`;
   await axios.get(apiRequest)
