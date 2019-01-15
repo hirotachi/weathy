@@ -2,7 +2,7 @@
   "name": "weathy",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "hirotachi <milesfiles0@gmail.com>",
+  "author": "hirotachi",
   "license": "MIT",
   "scripts": {
     "build:dev": "webpack",
@@ -53,7 +53,6 @@
     "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
     "webpack-cli": "^3.2.1"
   }
 }
