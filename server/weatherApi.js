@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 
-const {darkSkyKey} = process.env.DARK_SKY_KEY || require("./apiKeys");
+const darkSkyKey = process.env.DARK_SKY_KEY || require("./apiKeys").darkSkyKey;
 
 module.exports = async (command, {lat, lon}) => {
   let weather = {};

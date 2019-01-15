@@ -1,10 +1,9 @@
 const axios = require("axios");
 const data = require("../countries.json");
-const apiKeys = require("../apiKeys");
 const geoLocator = require("../openCageApi");
 const weatherApi = require("../weatherApi");
 
-const {darkSkyKey} = apiKeys;
+const darkSkyKey = process.env.DARK_SKY_KEY || require("../apiKeys").darkSkyKey;
 
 
 

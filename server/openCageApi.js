@@ -1,7 +1,7 @@
 const axios = require("axios");
 const uuidv4 = require("uuid/v4");
 
-const {openCageKey} = process.env.OPEN_CAGE_KEY || require("./apiKeys");
+const openCageKey = process.env.OPEN_CAGE_KEY || require("./apiKeys").openCageKey;
 
 module.exports = async (query) => {
   const request = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${openCageKey}`;
