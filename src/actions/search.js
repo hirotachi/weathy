@@ -25,10 +25,16 @@ export const searchText = (query) => {
                 }
             }
         `
-      }).then(({data}) => {
-        dispatch(setCurrentSearch(data.search));
+      }).then((res) => {
+        console.log(res);
+        const {search} = res.data;
+        if(!res.loading && search.length === 0){
+          dispatch(setNoResult());
+        }else {
+          dispatch(setCurrentSearch(search));
+        }
       })
-        .catch(err => console.log(err))
+        .catch((err) => dispatch(setNetworkError()))
     }
   }
 };
@@ -41,8 +47,6 @@ const setCurrentSearch = (data) => {
   }
 };
 
-export const clearCurrentSearch = () => {
-  return {
-    type: "CLEAR_CURRENT_SEARCH"
-  }
-};
+export const setNetworkError = () => ({type: "SET_NETWORK_ERROR"});
+const setNoResult = () => ({type: "SET_NO_RESULT"});
+export const clearResult = () => ({type: "RESET_RESULT"});

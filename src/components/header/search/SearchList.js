@@ -9,7 +9,7 @@ class SearchList extends Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(this.props.searchList.length > 0){
+    if(this.props.search.result.length > 0){
       this.styleLoading();
     }
   };
@@ -45,8 +45,8 @@ class SearchList extends Component {
     if(!this.props.focused){
       return "0";
     }
-    if (this.props.searchList.length > 0) {
-      return `${8 * this.props.searchList.length}rem`;
+    if (this.props.search.result.length > 0) {
+      return `${8 * this.props.search.result.length}rem`;
     }
     return "8rem";
   };
@@ -57,8 +57,8 @@ class SearchList extends Component {
       <div className="search__list"
            style={{height: `${!!this.props.text ? this.sizeSearchList() : "0"}`}}>
         {
-          this.props.text && this.props.focused && <div
-            className={`search__load ${this.props.searchList.length > 0 ? "fade-out" : "fade-in"} `}>
+          this.props.text && this.props.focused && !this.props.search.noResult && <div
+            className={`search__load ${this.props.search.result.length > 0 ? "fade-out" : "fade-in"} `}>
             <span className="search__load--icons"/>
             <span className="search__load--icons"/>
             <span className="search__load--icons"/>
@@ -66,12 +66,19 @@ class SearchList extends Component {
         }
         {
           this.props.focused &&
-          this.props.searchList.map(location =>
-            <div className="search__result fade-in"
-                 onClick={() => this.handleCityClick(location)}
-                 key={shortid()}>
-              <p>{location.city || location.state || this.props.text}, {location.country}</p>
-            </div>)
+          <React.Fragment>
+            {
+              this.props.search.noResult ? // handle if there is no result returned
+                  <p className="search__noResult">no result</p> :
+                  this.props.search.result.map(location =>
+                  <div className="search__result fade-in"
+                       onClick={() => this.handleCityClick(location)}
+                       key={shortid()}>
+                    <p>{location.city || location.state || this.props.text}, {location.country}</p>
+                  </div>)
+            }
+          </React.Fragment>
+
         }
       </div>
     );
@@ -80,7 +87,7 @@ class SearchList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    searchList: state.search,
+    search: state.search,
     locationsList: state.locations.locationsList
   }
 };

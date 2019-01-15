@@ -1,4 +1,4 @@
-import {client} from "./search";
+import {client, setNetworkError} from "./search";
 import gql from "graphql-tag";
 
 
@@ -18,7 +18,7 @@ export const getCurrentCityWeather = ({lon, lat}) => { // get api weather info a
           }
       `
     }).then(({data}) => dispatch(setCurrentCityWeather(data.currentWeather)))
-    .catch(err => console.log(err))
+    .catch(err => dispatch(setNetworkError()))
   }
 };
 

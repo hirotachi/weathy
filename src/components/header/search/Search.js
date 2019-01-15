@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {SearchIcon} from "../../icons/icons";
-import {clearCurrentSearch, searchText} from "../../../actions/search";
+import { clearResult, searchText} from "../../../actions/search";
 import SearchList from "./SearchList";
 
 
@@ -48,7 +48,7 @@ class Search extends Component {
         this.startSearch(search);
       }, 1000);
     }else {
-      this.props.dispatch(clearCurrentSearch());
+      this.props.dispatch(clearResult());
     }
 
   };

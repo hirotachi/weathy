@@ -1,8 +1,10 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import Header from "./header/Header";
 import Date from "./Date";
 import Location from "./locations/Location";
 import Weather from "./weather/Weather";
+import NetworkError from "./network/NetworkError";
 
 
 class Homepage extends  Component{
@@ -27,22 +29,32 @@ class Homepage extends  Component{
   render(){
     return (
       <div>
-        <Header router={this.props}/>
         {
-          this.state.mobile ?
-            <React.Fragment>
-              <Location/>
-              <Date/>
-            </React.Fragment> :
-            <React.Fragment>
-              <Date/>
-              <Location/>
-            </React.Fragment>
+          this.props.networkError ?
+              <NetworkError/>:
+          <React.Fragment>
+            <Header router={this.props}/>
+            {
+              this.state.mobile ?
+                  <React.Fragment>
+                    <Location/>
+                    <Date/>
+                  </React.Fragment> :
+                  <React.Fragment>
+                    <Date/>
+                    <Location/>
+                  </React.Fragment>
+            }
+            <Weather/>
+          </React.Fragment>
         }
-        <Weather/>
       </div>
     );
   }
 }
-
-export default Homepage;
+const mapStateToProps = (state) => {
+  return {
+    networkError: state.search.networkError
+  }
+};
+export default connect(mapStateToProps)(Homepage);
