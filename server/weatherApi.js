@@ -2,7 +2,7 @@ import axios from "axios";
 import apiKeys from "./apiKeys";
 
 
-const {darkSkyKey} = apiKeys;
+const {darkSkyKey} = process.env.DARK_SKY_KEY || apiKeys;
 
 export default async (command, {lat, lon}) => {
   let weather = {};

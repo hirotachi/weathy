@@ -2,7 +2,7 @@ import apiKeys from "./apiKeys";
 import axios from "axios";
 import uuidv4 from "uuid/v4";
 
-const openCageKey = apiKeys.openCageKey;
+const openCageKey = process.env.OPEN_CAGE_KEY || apiKeys.openCageKey;
 
 export default async (query) => {
   const request = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${openCageKey}`;
