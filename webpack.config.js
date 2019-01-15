@@ -68,7 +68,8 @@ module.exports = (env) => {
       new webpack.DefinePlugin({
         "process.env.OPEN_WEATHER_KEY" : JSON.stringify(process.env.OPEN_WEATHER_KEY),
         "process.env.DARK_SKY_KEY": JSON.stringify(process.env.DARK_SKY_KEY),
-        "process.env.OPEN_CAGE_KEY": JSON.stringify(process.env.OPEN_CAGE_KEY)
+        "process.env.OPEN_CAGE_KEY": JSON.stringify(process.env.OPEN_CAGE_KEY),
+        "process.env.HOST": JSON.stringify(process.env.HOST)
       })
     ],
     devtool: isProduction ? "source-map" : "cheap-eval-source-map",

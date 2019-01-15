@@ -3,10 +3,9 @@ import gql from "graphql-tag";
 
 
 export const client = new ApolloClient({
-  uri: "/graphql"
+  uri: process.env.HOST || "/graphql"
 });
 
-console.log(process);
 
 export const searchText = (query) => {
   return (dispatch) => {
