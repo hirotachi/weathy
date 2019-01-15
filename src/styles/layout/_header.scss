@@ -2,7 +2,11 @@
   display: flex;
   align-items: center;
   height: 7rem;
+  padding-top: 1rem;
   @include minMobile{
+    padding: 1rem 2rem;
+  }
+  @include mobileLandscape{
     padding: 0 2rem;
   }
   &__logo{
@@ -15,6 +19,12 @@
     }
     @include minMobile{
       margin: 0;
+    }
+    @include tablet{
+      font-size: 3rem;
+    }
+    @include desktopHigh{
+      font-size: 3vw;
     }
   }
 }

@@ -6,7 +6,7 @@ class Date extends PureComponent{
     time: moment().format("h:mm a"),
   };
 
-  componentDidMount() {
+  componentDidMount() { // set time each minute
     this.changeTime = setInterval(() => {
       this.setState(() => ({time: moment().format("h:mm a")}));
     }, 60000);
@@ -18,9 +18,9 @@ class Date extends PureComponent{
 
   render(){
     return (
-      <div>
-        <span>{this.state.time}</span>
-        <span>{moment().format("dddd, D MMM 'YY")}</span>
+      <div className="date">
+        <span className="date__time">{this.state.time}</span>
+        <span className="date__rest">{moment().format("dddd, D MMM 'YY")}</span>
       </div>
     );
   }

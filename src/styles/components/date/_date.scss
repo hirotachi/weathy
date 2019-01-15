@@ -1,0 +1,30 @@
+.date {
+  padding: 1rem 2rem;
+  font-weight: bold;
+  letter-spacing: .2rem;
+  opacity: 0;
+  @include prefix(animation, fadeIn .5s ease-in-out forwards);
+  @include  tablet{
+    font-size: 2rem;
+  }
+  @include desktop{
+    margin-top: 5rem;
+  }
+  @include mobileLandscape{
+    margin: 0;
+  }
+  &__time{
+    margin-right: 2.5rem;
+    position: relative;
+    &:after{
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -2.2rem;
+      height: .2rem;
+      width: 2rem;
+      background-color: $color-white;
+      border-radius: 20%;
+    }
+  }
+}
