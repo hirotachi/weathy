@@ -8,9 +8,11 @@
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server --host 0.0.0.0",
+    "babel:build": "babel server/index.js --out-file server/server.js",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
-    "start": " babel-node server/index.js",
-    "heroku-postbuild": "yarn run build:prod"
+    "start": "node server/server.js",
+    "serve": "babel-node server/index.js",
+    "heroku-postbuild": "yarn run build:prod && yarn run babel:build"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -53,6 +55,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "webpack-cli": "^3.2.1"
   }
 }
