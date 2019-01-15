@@ -18,12 +18,17 @@ class Location extends PureComponent {
 
   componentDidMount() {
     this.setInitialPos();
+    window.addEventListener("resize", this.setInitialPos);
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.locations.length !== prevProps.locations.length) {
       this.moveToLastLocation();
     }
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.setInitialPos);
   };
 
   // new data handler =================================================

@@ -4,14 +4,14 @@
   overflow: hidden;
   position: relative;
   margin-top: 5rem;
-  @media (min-width: $tablet-bp) {
+  @include desktop {
     width: 30%;
     margin-top: 10vh;
   }
-  @media (min-width: $mobileL-bp) and (max-width: $tablet-bp) {
+  @include tablet{
     width: 100%;
   }
-  @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape) {
+  @include mobileLandscape {
     width: 100%;
     margin: 0 auto;
   }
@@ -38,25 +38,25 @@
     align-items: center;
     justify-content: center;
     letter-spacing: .3rem;
-    @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape) {
+    @include mobileLandscape {
       width: 75%;
     }
     &--name {
       display: inline-block;
       font-weight: bold;
       opacity: .5;
-      @media (min-width: $tablet-bp) {
+      @include desktop {
         opacity: 0;
         animation: fadeOut .5s .2s ease-in-out;
       }
-      @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape) {
+      @include mobileLandscape{
         opacity: .5;
         -webkit-animation: unset;
         -o-animation: unset;
         animation: unset;
         font-size: 5vw;
       }
-      @media (min-width: $mobileL-bp) and (max-width: $tablet-bp) {
+      @include tablet{
         font-size: 10vw;
       }
     }
@@ -101,11 +101,11 @@
 .active-city {
   span {
     opacity: 1;
-    @media (min-width: $tablet-bp) {
+    @include desktop {
       animation: fadeIn .5s .2s ease-in-out forwards !important;
       opacity: 0;
     }
-    @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape) {
+    @include mobileLandscape {
       animation: unset !important;
       opacity: 1;
     }

@@ -9,16 +9,16 @@
   -ms-transition: all .5s ease-in-out;
   -o-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
-  @media (min-width: $mobileL-bp){
+  @include minMobile{
     width: 0;
     left: unset;
     right: 7%;
     top: 3%;
   }
-  @media (max-width: $tablet-bp) and (min-width: $mobileL-bp){
+  @include tablet{
     top: 2%;
   }
-  @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape){
+  @include mobileLandscape{
     top: 3%;
   }
   &__input{

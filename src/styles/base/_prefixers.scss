@@ -1,0 +1,15 @@
+@mixin prefix($property, $value){
+  @if $property == "transform" or "transition"{
+    @each $prefix in -moz-, -webkit-, -ms-, -o-, ""{
+      #{$prefix}#{$property}: $value;
+    }
+  }@else if $property == "animation"{
+    @each $prefix in -webkit-, -o-, ""{
+      #{$prefix}#{$property}: $value;
+    }
+  }@else if $property == "user-select"{
+    @each $prefix in -moz-, -ms-, -webkit-, ""{
+      #{$prefix}#{$property}: $value;
+    }
+  }
+}

@@ -2,26 +2,18 @@
   display: flex;
   align-items: center;
   height: 7rem;
-  @media (min-width: $mobileL-bp){
+  @include minMobile{
     padding: 0 2rem;
   }
   &__logo{
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    -webkit-transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -ms-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+    @include prefix(transform, translate3d(0, 0, 0));
+    @include prefix(transition, all .5s ease-in-out);
     margin: 0 auto;
     font-size: 2rem;
     @include mobileLandscape{
       font-size: 3rem;
     }
-    @media (min-width: $mobileL-bp){
+    @include minMobile{
       margin: 0;
     }
   }
