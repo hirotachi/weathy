@@ -17,6 +17,10 @@
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
     margin: 0 auto;
+    font-size: 2rem;
+    @include mobileLandscape{
+      font-size: 3rem;
+    }
     @media (min-width: $mobileL-bp){
       margin: 0;
     }

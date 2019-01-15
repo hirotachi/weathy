@@ -21,3 +21,26 @@ $mobileM-bp: 375px;
 $mobileL-bp: 480px;
 $mobileVL-bp: 815px;
 $landscape-bp: 800px;
+
+//media mixins
+
+@mixin mobileLandscape {
+  @media (min-width: $mobileL-bp) and (max-width: $mobileVL-bp) and (orientation: landscape){
+    @content;
+  }
+}
+@mixin tablet{
+  @media (max-width: $tablet-bp) and (min-width: $mobileL-bp){
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: $tablet-bp){
+    @content;
+  }
+}
+@mixin minMobile {
+  @media (min-width: $mobileL-bp){
+    @content;
+  }
+}
