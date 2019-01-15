@@ -26,7 +26,6 @@ export const searchText = (query) => {
             }
         `
       }).then((res) => {
-        console.log(res);
         const {search} = res.data;
         if(!res.loading && search.length === 0){
           dispatch(setNoResult());

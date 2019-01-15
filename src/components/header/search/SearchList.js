@@ -69,7 +69,7 @@ class SearchList extends Component {
           <React.Fragment>
             {
               this.props.search.noResult ? // handle if there is no result returned
-                  <p className="search__noResult">Sorry nothing came up for "{this.props.text}",
+                  <p className="search__noResult fade-in">Sorry nothing came up for "{this.props.text}",
                   try using a zip code.</p> :
                   this.props.search.result.map(location =>
                   <div className="search__result fade-in"

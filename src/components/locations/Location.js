@@ -16,6 +16,10 @@ class Location extends PureComponent {
 
   // lifecycle =================================================
 
+  componentDidMount() {
+    this.setInitialPos();
+  };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.locations.length !== prevProps.locations.length) {
       this.moveToLastLocation();
@@ -34,9 +38,21 @@ class Location extends PureComponent {
   };
 
   // click handlers =================================================
+  setInitialPos = () => {
+    // set initial slider location dynamically dependent on css value
+    const locationCity = document.querySelector(".locations__city");
+    const locationsList = document.querySelector(".locations");
+    const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
+    if(this.state.currentIndex === 0){
+      this.setState(() => ({currentNum: (100 - mainNum) / 2}));
+    }
+  };
   handleLocationChange = (index) => { // change translate3d upon selected location change
     const {currentIndex, currentNum} = this.state;
-    const mainNum = 55;
+    const locationCity = document.querySelector(".locations__city");
+    const locationsList = document.querySelector(".locations");
+    //calculate the value the slider will move by (dynamic value dependent on css value)
+    const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
     if (currentIndex < index) {
       this.setState(() => ({currentNum: currentNum - mainNum}));
     } else if (currentIndex > index) {
@@ -49,7 +65,7 @@ class Location extends PureComponent {
     this.props.dispatch(setSelectedLocation(id));
     this.props.dispatch(getCurrentCityWeather(geometry));
     this.setState(() => ({currentIndex: index}));
-    this.handleLocationChange(index)
+    this.handleLocationChange(index);
   };
   // touch handlers =================================================
   handleTouchStart = (e) => {
@@ -84,7 +100,7 @@ class Location extends PureComponent {
             this.props.locations.length > 0 &&
             this.props.locations.map((location, index) =>
               <div
-                className={`locations__city ${this.state.currentIndex === index ? "active" : ""}`}
+                className={`locations__city ${this.state.currentIndex === index ? "active-city" : ""}`}
                 key={shortid()}
                 onClick={() => this.handleSelectedLocation(location, index)}
               >
