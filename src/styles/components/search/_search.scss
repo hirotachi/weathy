@@ -95,6 +95,11 @@
      @extend %loadingPoint;
    }
   }
+  &__noResult{
+    letter-spacing: .2rem;
+    text-align: center;
+    color: rgba($color-black, .7);
+  }
 }
 
 @keyframes ShowInput {

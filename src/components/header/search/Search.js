@@ -151,7 +151,7 @@ class Search extends Component {
               type="text"
               placeholder="City, Zip code"
               onFocus={this.focusInput}
-              onBlur={this.blurInput}
+              // onBlur={this.blurInput}
               className="search__input--bar"
             />
           }
