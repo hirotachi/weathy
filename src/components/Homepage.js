@@ -5,10 +5,12 @@ import Date from "./Date";
 import Location from "./locations/Location";
 import Weather from "./weather/Weather";
 import NetworkError from "./network/NetworkError";
+import GifSlider from "./gifSlider/GifSlider";
 
 
 const Homepage = (props) => (
   <div className="homepage">
+    <GifSlider/>
     {
       props.networkError ?
         <NetworkError/> :
