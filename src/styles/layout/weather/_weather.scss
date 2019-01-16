@@ -12,6 +12,9 @@
     flex-direction: column;
     min-height: 40%;
     margin-bottom: 25%;
+    @include tablet{
+      margin-bottom: 10%;
+    }
     @include mobileLandscape{
       min-width: 30%;
     }
@@ -26,8 +29,11 @@
     &--sum{
       letter-spacing: .3rem;
       padding-left: 3rem;
+      @include tablet{
+        font-size: 5rem;
+      }
       @include mobileLandscape{
-        font-size: 2vw;
+        font-size: 1.6rem;
       }
     }
   }
@@ -50,7 +56,10 @@
       height: 1px;
       width: 90%;
       background-color: rgba($color-white, .3);
-      @include minMobile{
+      @include tablet{
+        display: inline-block;
+      }
+      @include mobileLandscape{
         display: none;
       }
     }
@@ -73,12 +82,30 @@
   &-title{
     text-transform: capitalize;
     letter-spacing: .2rem;
+    @include tablet{
+      font-size: 3rem;
+    }
+    @include mobileLandscape{
+      font-size: 1.6rem;
+    }
   }
   &-num{
     font-size: 3.5rem;
     font-weight: 500;
+    @include tablet{
+      font-size: 7rem;
+    }
+    @include mobileLandscape{
+      font-size: 3.5rem;
+    }
   }
   &-symbol{
     font-weight: 500;
+    @include tablet{
+      font-size: 2rem;
+    }
+    @include mobileLandscape{
+      font-size: 1.6rem;
+    }
   }
 }

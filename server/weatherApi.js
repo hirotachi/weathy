@@ -15,7 +15,7 @@ module.exports = async (command, {lat, lon}) => {
             humidity,
             windSpeed,
             summary,
-            precipIntensity: rain,
+            precipProbability: rain,
             icon
           } = value;
           weather = {
