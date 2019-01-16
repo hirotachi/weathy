@@ -3,9 +3,24 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @include desktop{
+    flex-direction: row;
+    width: 70%;
+    background-color: rgba($color-white, .1);
+    height: 20%;
+    flex: unset;
+  }
+  @include tabletHigh{
+    width: 100%;
+    height: 30%;
+  }
   @include mobileLandscape{
     flex-direction: row;
     background-color: rgba($color-white, .1);
+    width: 100%;
+    flex: 1;
+    align-items: center;
   }
   &__main{
     display: flex;
@@ -15,13 +30,24 @@
     @include tablet{
       margin-bottom: 10%;
     }
+    @include desktop{
+      margin: 0;
+      width: 40%;
+    }
     @include mobileLandscape{
       min-width: 30%;
+      margin: 0;
     }
     &--temp{
       font-size: 25vh;
       margin: 0;
       text-align: center;
+      @include desktop{
+        font-size: 10vh;
+      }
+      @include tabletHigh{
+        font-size: 20vh;
+      }
       @include mobileLandscape{
         font-size: 10rem;
       }
@@ -32,8 +58,11 @@
       @include tablet{
         font-size: 5rem;
       }
+      @include tabletHigh{
+        font-size: 2vw;
+      }
       @include mobileLandscape{
-        font-size: 1.6rem;
+        font-size: 1.2rem;
       }
     }
   }
@@ -46,6 +75,9 @@
     position: relative;
     @include mobileLandscape{
       padding-bottom: 2rem;
+      align-items: center;
+    }
+    @include tabletHigh{
       align-items: center;
     }
     &:after{
@@ -62,15 +94,24 @@
       @include mobileLandscape{
         display: none;
       }
+      @include desktop{
+        display: none;
+      }
     }
     &--field{
       display: flex;
       flex-basis: 30%;
       flex-direction: column;
       margin-top: 0;
+      @include desktop{
+        flex-basis: 20%;
+      }
       span{
         min-height: 4rem;
         @include mobileLandscape{
+          min-height: 3rem;
+        }
+        @include desktop{
           min-height: 3rem;
         }
       }
@@ -88,6 +129,9 @@
     @include mobileLandscape{
       font-size: 1.6rem;
     }
+    @include tabletHigh{
+      font-size: 3rem;
+    }
   }
   &-num{
     font-size: 3.5rem;
@@ -98,6 +142,9 @@
     @include mobileLandscape{
       font-size: 3.5rem;
     }
+    @include tabletHigh{
+      font-size: 7rem;
+    }
   }
   &-symbol{
     font-weight: 500;
@@ -106,6 +153,9 @@
     }
     @include mobileLandscape{
       font-size: 1.6rem;
+    }
+    @include tabletHigh{
+      font-size: 2rem;
     }
   }
 }

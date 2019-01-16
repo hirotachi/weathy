@@ -51,11 +51,17 @@
     @include  prefix(transition, all .5s ease-in-out);
     border-radius: 0 0 .5rem .5rem;
     box-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+    max-height: 30rem;
+    overflow-y: auto;
+    @include mobileLandscape{
+      max-height: 25rem;
+    }
   }
   &__result{
     display: flex;
     border-bottom: 1px solid #eee;
     color: $color-black;
+    cursor: pointer;
   }
   &__icon{
     cursor: pointer;

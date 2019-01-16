@@ -99,8 +99,10 @@ class Location extends Component {
     const arrowRight = document.querySelector(".right");
     if(locations.length - 1 === index){
       arrowRight.style.opacity = 0.3;
+      arrowLeft.removeAttribute("style");
     }else if (index === 0){
       arrowLeft.style.opacity = 0.3;
+      arrowRight.removeAttribute("style");
     }else {
       arrowLeft.removeAttribute("style");
       arrowRight.removeAttribute("style");

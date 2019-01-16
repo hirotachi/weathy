@@ -35,7 +35,7 @@ class Search extends Component {
     this.setState(() => ({focused: true}));
   };
   blurInput = () => {
-    this.delay(() => this.setState(() => ({focused: false})), 100);
+    this.delay(() => this.setState(() => ({focused: false})), 200);
   };
 
   // input handlers========================================
@@ -92,12 +92,16 @@ class Search extends Component {
     const input = document.querySelector(".search__input--bar");
     const searchIcon = document.querySelector(".search__icon svg");
     const searchSection = document.querySelector(".search");
+    const landscapeQuery = window.matchMedia(
+      "(max-width: 768px) and (min-width: 480px) and (orientation: landscape)").matches;
     const mediaQuery = window.matchMedia("(min-width: 480px)").matches;
     if (command === "open") {
       input.style.animation = "ShowInput .5s ease-in-out forwards";
       searchIcon.style.fill = "black";
       searchIcon.style.width = "3rem";
-      if(mediaQuery){
+      if(landscapeQuery){
+        searchSection.style.width = "45%";
+      }else if(mediaQuery){
         searchSection.style.width = "35%";
       }
     }else if (command === "close"){
@@ -118,10 +122,15 @@ class Search extends Component {
   };
   adjustHeader = () => { // adjust header section on resize
     const mediaQuery = window.matchMedia("(min-width: 480px)").matches;
+    const landscapeQuery = window.matchMedia(
+      "(max-width: 768px) and (min-width: 480px) and (orientation: landscape)").matches;
     const searchSection = document.querySelector(".search");
     const logo = document.querySelector(".header__logo");
     if(this.state.show){
-      if(mediaQuery){
+      if(landscapeQuery){
+        logo.removeAttribute("style");
+        searchSection.style.width = "45%";
+      }else if(mediaQuery){
         logo.removeAttribute("style");
         searchSection.style.width = "35%";
       }else {
