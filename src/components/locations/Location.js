@@ -99,11 +99,11 @@ class Location extends Component {
     const { locations } = this.props;
     const currentTouch = e.changedTouches[0].clientX;
     let index = this.getCurrentActiveIndex();
-    if(currentTouch > firstTouch){
+    if(currentTouch > firstTouch + 50){
       if(locations[index - 1]){
         this.handleSelectedLocation(locations[index - 1], index - 1);
       }
-    }else if (currentTouch < firstTouch) {
+    }else if (currentTouch < firstTouch - 50) {
       if(locations[index + 1]){
         this.handleSelectedLocation(locations[index + 1], index + 1);
       }
