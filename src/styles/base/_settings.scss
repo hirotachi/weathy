@@ -64,7 +64,7 @@ $tabletHigh: 1000px;
 }
 
 @mixin tabletHigh{
-  @media (min-height: $tabletHigh){
+  @media (min-height: $tabletHigh) and (min-width: $desktop-bp){
     @content;
   }
 }

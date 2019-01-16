@@ -2,14 +2,17 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-
+  padding: 0 2rem;
+  justify-content: flex-end;
   @include desktop{
     flex-direction: row;
     width: 70%;
     background-color: rgba($color-white, .1);
     height: 20%;
     flex: unset;
+  }
+  @include tablet{
+    padding: 0 2rem;
   }
   @include tabletHigh{
     width: 100%;
@@ -21,14 +24,15 @@
     width: 100%;
     flex: 1;
     align-items: center;
+    padding: 0;
   }
   &__main{
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     min-height: 40%;
-    margin-bottom: 25%;
     @include tablet{
-      margin-bottom: 10%;
+      margin-bottom: 0;
     }
     @include desktop{
       margin: 0;
@@ -39,30 +43,38 @@
       margin: 0;
     }
     &--temp{
-      font-size: 25vh;
+      font-size: 15vh;
       margin: 0;
-      text-align: center;
+      padding-left: 5rem;
       @include desktop{
         font-size: 10vh;
+        padding: 0;
+        text-align: center;
       }
       @include tabletHigh{
         font-size: 20vh;
       }
       @include mobileLandscape{
         font-size: 10rem;
+        text-align: center;
       }
     }
     &--sum{
       letter-spacing: .3rem;
       padding-left: 3rem;
+      @include desktop{
+        text-align: center;
+        padding-left: 0;
+      }
       @include tablet{
-        font-size: 5rem;
+        font-size: 3rem;
       }
       @include tabletHigh{
         font-size: 2vw;
       }
       @include mobileLandscape{
         font-size: 1.2rem;
+        text-align: center;
       }
     }
   }
@@ -73,20 +85,27 @@
     justify-content: space-around;
     padding-bottom: 2rem;
     position: relative;
-    @include mobileLandscape{
-      padding-bottom: 2rem;
-      align-items: center;
+    margin: 3rem 0;
+    @include desktop{
+      margin: 0;
+    }
+    @include tablet{
+      margin-top: 5rem;
     }
     @include tabletHigh{
+      align-items: center;
+    }
+    @include mobileLandscape{
+      padding-bottom: 2rem;
       align-items: center;
     }
     &:after{
       content: "";
       position: absolute;
       top: -20%;
-      left: 5%;
+      left: 0;
       height: 1px;
-      width: 90%;
+      width: 100%;
       background-color: rgba($color-white, .3);
       @include tablet{
         display: inline-block;
