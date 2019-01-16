@@ -8,7 +8,7 @@ import NetworkError from "./network/NetworkError";
 
 
 const Homepage = (props) => (
-  <div>
+  <div className="homepage">
     {
       props.networkError ?
         <NetworkError/> :

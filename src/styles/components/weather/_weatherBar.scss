@@ -1,0 +1,17 @@
+.bar{
+  width: 100%;
+  &__container{
+    height: 1rem;
+    width: 100%;
+    background-color: rgba(grey, .5);
+    position: relative;
+    border-radius: .5rem;
+  }
+  &__element{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    border-radius: .5rem;
+    @include prefix(transition, all .5s ease-in-out);
+  }
+}

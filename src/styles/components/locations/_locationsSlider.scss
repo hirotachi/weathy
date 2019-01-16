@@ -114,6 +114,9 @@
       @include desktop {
         width: 8%;
       }
+      @include mobileLandscape{
+        width: 6%;
+      }
     }
     &--arrow{
       height: 3rem;

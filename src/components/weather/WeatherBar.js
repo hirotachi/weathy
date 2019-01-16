@@ -14,16 +14,14 @@ class Weatherbar extends Component{
   };
   render(){
     return (
-      <div>
-        <div style={{backgroundColor: "grey", width: "200px", height: "1rem", position: "relative"}}>
+      <div className="bar">
+        <div className="bar__container">
           <div
+            className="bar__element"
             style={
               {
-                position: "absolute",
-                height: "100%",
                 width: `${this.props.value}%`,
                 backgroundColor: `${this.setColor()}`,
-                transition: "all .5s ease-in-out"
               }
             }
           />

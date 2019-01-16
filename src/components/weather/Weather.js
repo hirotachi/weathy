@@ -6,19 +6,29 @@ import { Humidity, Rain, Wind } from "../icons/icons";
 const Weather = ({ weather }) => (
   <div className="weather">
     <div className="weather__main">
-      <p className="weather__main--temp">temprature: {Math.floor(weather.temperature)}&deg; C</p>
+      <p className="weather__main--temp">{Math.floor(weather.temperature)}&deg;</p>
       <p className="weather__main--sum">{weather.summary}</p>
     </div>
     <div className="weather__secondary">
       <div className="weather__secondary--field">
-        <Wind/>{weather.windSpeed} km/h <Weatherbar value={weather.windSpeed}/>
+        {/*<Wind/>*/}
+        <span className="field-title">wind</span>
+        <span className="field-num">{Math.floor(weather.windSpeed)}</span>
+        <span className="field-symbol">km/h</span>
+        <Weatherbar value={weather.windSpeed}/>
       </div>
       <div className="weather__secondary--field">
-        <Rain/> rain: {Math.floor(weather.rain)}%
-        <Weatherbar value={Math.floor(weather.rain)}/>
+        {/*<Rain/>*/}
+        <span className="field-title">rain</span>
+        <span className="field-num">{Math.floor(weather.rain * 100)}</span>
+        <span className="field-symbol">%</span>
+        <Weatherbar value={Math.floor(weather.rain * 100)}/>
       </div>
       <div className="weather__secondary--field">
-        <Humidity/> humidity: {Math.floor(weather.humidity * 100)}%
+        {/*<Humidity/>*/}
+        <span className="field-title">humidity</span>
+        <span className="field-num">{Math.floor(weather.humidity * 100)}</span>
+        <span className="field-symbol">%</span>
         <Weatherbar value={Math.floor(weather.humidity * 100)}/>
       </div>
     </div>

@@ -21,6 +21,7 @@ $mobileM-bp: 375px;
 $mobileL-bp: 480px;
 $mobileVL-bp: 815px;
 $landscape-bp: 800px;
+$mobileHeight: 639px;
 
 //media mixins
 
@@ -49,3 +50,16 @@ $landscape-bp: 800px;
     @content;
   }
 }
+
+@mixin minMobileHeight {
+  @media (min-height: $mobileHeight) and (max-width: $mobileL-bp){
+    @content;
+  }
+}
+
+@mixin maxMobileHeight {
+  @media (max-height: $mobileHeight) and (max-width: $mobileL-bp){
+    @content;
+  }
+}
+

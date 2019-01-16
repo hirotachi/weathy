@@ -1,0 +1,83 @@
+.weather{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  @include mobileLandscape{
+    flex-direction: row;
+    background-color: rgba($color-white, .1);
+  }
+  &__main{
+    display: flex;
+    flex-direction: column;
+    min-height: 50%;
+    @include mobileLandscape{
+      min-width: 30%;
+    }
+    &--temp{
+      font-size: 25rem;
+      margin: 0;
+      text-align: center;
+      @include mobileLandscape{
+        font-size: 10rem;
+      }
+    }
+    &--sum{
+      font-size: 2rem;
+      letter-spacing: .3rem;
+      padding-left: 3rem;
+    }
+  }
+  &__secondary{
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    flex: 1;
+    justify-content: space-around;
+    padding-bottom: 5rem;
+    position: relative;
+    @include mobileLandscape{
+      padding-bottom: 2rem;
+    }
+    &:after{
+      content: "";
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      height: 1px;
+      width: 90%;
+      background-color: rgba($color-white, .3);
+      @include minMobile{
+        display: none;
+      }
+    }
+    &--field{
+      display: flex;
+      flex-basis: 30%;
+      flex-direction: column;
+      margin-top: 0;
+      span{
+        min-height: 4rem;
+        @include mobileLandscape{
+          min-height: 3rem;
+        }
+      }
+    }
+  }
+}
+
+.field{
+  &-title{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-transform: capitalize;
+    letter-spacing: .2rem;
+  }
+  &-num{
+    font-size: 3.5rem;
+    font-weight: 500;
+  }
+  &-symbol{
+    font-weight: 500;
+  }
+}
