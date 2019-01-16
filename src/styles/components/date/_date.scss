@@ -3,6 +3,7 @@
   font-weight: bold;
   letter-spacing: .2rem;
   opacity: 0;
+  font-size: 1.2rem;
   @include prefix(animation, fadeIn .5s ease-in-out forwards);
   @include  tablet{
     font-size: 2rem;
