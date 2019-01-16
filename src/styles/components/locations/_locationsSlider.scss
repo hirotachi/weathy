@@ -41,9 +41,9 @@
       display: inline-block;
       font-weight: bold;
       opacity: .5;
+      @include prefix(transition, all .5s ease-in-out);
       @include desktop {
         opacity: 0;
-        animation: fadeOut .5s .2s ease-in-out;
       }
       @include mobileLandscape{
         opacity: .5;
@@ -89,13 +89,13 @@
 .active-city {
   span {
     opacity: 1;
-    @include desktop {
-      @include prefix(animation, fadeIn .5s .2s ease-in-out forwards !important);
-      opacity: 0;
-    }
-    @include mobileLandscape {
-      @include prefix(animation, unset !important);
-      opacity: 1;
-    }
+    //@include desktop {
+    //  @include prefix(animation, fadeIn .5s .2s ease-in-out forwards !important);
+    //  opacity: 0;
+    //}
+    //@include mobileLandscape {
+    //  @include prefix(animation, unset !important);
+    //  opacity: 1;
+    //}
   }
 }
