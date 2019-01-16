@@ -34,8 +34,10 @@ class Location extends PureComponent {
   // new data handler =================================================
 
   moveToLastLocation = () => { // move to last location that was added to the locations list
-    const mainNum = 55;
-    const calcMoveBy = mainNum * (this.props.locations.length - 1) - 22.5;
+    const locationCity = document.querySelector(".locations__city");
+    const locationsList = document.querySelector(".locations");
+    const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
+    const calcMoveBy = mainNum * (this.props.locations.length - 1) - ((100 - mainNum) / 2);
     this.setState(() => ({
       currentIndex: this.props.locations.length - 1,
       currentNum: -calcMoveBy
@@ -48,8 +50,11 @@ class Location extends PureComponent {
     const locationCity = document.querySelector(".locations__city");
     const locationsList = document.querySelector(".locations");
     const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
+    const initialNum = (100 - mainNum) / 2;
     if(this.state.currentIndex === 0){
-      this.setState(() => ({currentNum: (100 - mainNum) / 2}));
+      this.setState(() => ({currentNum: initialNum}));
+    }else { // change location container when window is resized
+      this.setState(() => ({currentNum: initialNum - (mainNum * this.state.currentIndex)}));
     }
   };
   handleLocationChange = (index) => { // change translate3d upon selected location change

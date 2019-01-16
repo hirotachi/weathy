@@ -27,10 +27,10 @@ export const searchText = (query) => {
             }
         `
       }).then((res) => {
-        const {search} = res.data;
-        if(!res.loading && search.length === 0){
+        const { search } = res.data;
+        if (!res.loading && search.length === 0) {
           dispatch(setNoResult());
-        }else {
+        } else {
           dispatch(setCurrentSearch(search));
         }
       })
@@ -47,6 +47,6 @@ const setCurrentSearch = (data) => {
   }
 };
 
-export const setNetworkError = () => ({type: "SET_NETWORK_ERROR"});
-const setNoResult = () => ({type: "SET_NO_RESULT"});
-export const clearResult = () => ({type: "RESET_RESULT"});
+export const setNetworkError = () => ({ type: "SET_NETWORK_ERROR" });
+const setNoResult = () => ({ type: "SET_NO_RESULT" });
+export const clearResult = () => ({ type: "RESET_RESULT" });
