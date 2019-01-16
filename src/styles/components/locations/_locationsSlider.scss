@@ -45,13 +45,13 @@
       @include desktop {
         opacity: 0;
       }
+      @include tablet{
+        font-size: 10vw;
+      }
       @include mobileLandscape{
         opacity: .5;
         @include prefix(animation, unset);
         font-size: 5vw;
-      }
-      @include tablet{
-        font-size: 10vw;
       }
     }
 
@@ -80,6 +80,50 @@
       }
     }
   }
+  &__nav{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    @include mobileLandscape{
+      display: flex;
+    }
+    @include desktop{
+      display: flex;
+    }
+    span{
+      display: flex;
+      height: 50%;
+      width: 6%;
+      border-radius: 50%;
+      position: relative;
+      z-index: 3;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      @include prefix(transition, all .3s ease-in-out);
+      &:active{
+        background-color: rgba($color-white, .2);
+      }
+      &:nth-child(1){
+        svg{
+          @include prefix(transform, rotate(180deg));
+        }
+      }
+      @include desktop {
+        width: 8%;
+      }
+    }
+    &--arrow{
+      height: 3rem;
+      width: 3rem;
+      opacity: 0;
+      fill: $color-white;
+      margin: auto;
+      @include prefix(animation, fadeIn .5s .3s ease-in-out forwards);
+    }
+  }
 }
 
 .active-country {
@@ -89,13 +133,5 @@
 .active-city {
   span {
     opacity: 1;
-    //@include desktop {
-    //  @include prefix(animation, fadeIn .5s .2s ease-in-out forwards !important);
-    //  opacity: 0;
-    //}
-    //@include mobileLandscape {
-    //  @include prefix(animation, unset !important);
-    //  opacity: 1;
-    //}
   }
 }

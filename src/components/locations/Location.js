@@ -4,6 +4,7 @@ import shortid from "shortid";
 import { setSelectedLocation } from "../../actions/locations";
 import { getCurrentCityWeather } from "../../actions/weather";
 import CurrentLocation from "./CurrentLocation";
+import { Arrow } from "../icons/icons";
 
 
 class Location extends Component {
@@ -67,6 +68,7 @@ class Location extends Component {
     const moveBy = `translate3d(${num}%, 0, 0)`;
     this.repositionClass(index);
     slider.style.transform = moveBy.toString();
+    this.styleNavArrows();
   };
   repositionClass = (index) => { // reposition active-city class for styling
     const locations = document.getElementsByClassName("locations__city");
@@ -89,6 +91,21 @@ class Location extends Component {
     }
     return index;
   };
+
+  styleNavArrows = () => { // style nav arrows according to current index
+    const index = this.getCurrentActiveIndex();
+    const {locations} = this.props;
+    const arrowLeft = document.querySelector(".left");
+    const arrowRight = document.querySelector(".right");
+    if(locations.length - 1 === index){
+      arrowRight.style.opacity = 0;
+    }else if (index === 0){
+      arrowLeft.style.opacity = 0;
+    }else {
+      arrowLeft.removeAttribute("style");
+      arrowRight.removeAttribute("style");
+    }
+  };
   // touch handlers =================================================
   handleTouchStart = (e) => {
     const firstTouch = e.changedTouches[0].clientX;
@@ -96,14 +113,22 @@ class Location extends Component {
   };
   handleTouchEnd = (e) => { // change location by touch on mobile devices
     const { firstTouch } = this.state;
-    const { locations } = this.props;
     const currentTouch = e.changedTouches[0].clientX;
-    let index = this.getCurrentActiveIndex();
     if(currentTouch > firstTouch + 50){
+      this.handleDirection("next");
+    }else if (currentTouch < firstTouch - 50) {
+      this.handleDirection("previous");
+    }
+  };
+
+  handleDirection = (command) => { // calls slider to move in desired direction
+    const { locations } = this.props;
+    let index = this.getCurrentActiveIndex();
+    if(command === "next"){
       if(locations[index - 1]){
         this.handleSelectedLocation(locations[index - 1], index - 1);
       }
-    }else if (currentTouch < firstTouch - 50) {
+    }else if ("previous"){
       if(locations[index + 1]){
         this.handleSelectedLocation(locations[index + 1], index + 1);
       }
@@ -113,6 +138,14 @@ class Location extends Component {
   render() {
     return (
       <div className="locations">
+        <div className="locations__nav">
+          <span className="left" onClick={() => this.handleDirection("next")}>
+            <Arrow style="locations__nav--arrow"/>
+          </span>
+          <span className="right" onClick={() => this.handleDirection("previous")}>
+            <Arrow style="locations__nav--arrow"/>
+          </span>
+        </div>
         <div className="locations__container">
           {
             this.props.locations.length > 0 &&
