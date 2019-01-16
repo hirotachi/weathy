@@ -1,5 +1,5 @@
 .date {
-  padding: 1rem 2rem;
+  padding: 1rem;
   font-weight: bold;
   letter-spacing: .2rem;
   opacity: 0;
@@ -16,6 +16,9 @@
   &__time{
     margin-right: 2.5rem;
     position: relative;
+    @include minMobile{
+      margin-right: 5rem;
+    }
     &:after{
       content: "";
       position: absolute;
@@ -25,6 +28,10 @@
       width: 2rem;
       background-color: $color-white;
       border-radius: 20%;
+      @include minMobile{
+        right: -4rem;
+        width: 3rem;
+      }
     }
   }
 }

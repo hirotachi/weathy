@@ -1,16 +1,13 @@
-import React, {PureComponent} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import shortid from "shortid";
-import {setSelectedLocation} from "../../actions/locations";
-import {getCurrentCityWeather} from "../../actions/weather";
+import { setSelectedLocation } from "../../actions/locations";
+import { getCurrentCityWeather } from "../../actions/weather";
 import CurrentLocation from "./CurrentLocation";
 
 
-class Location extends PureComponent {
-
+class Location extends Component {
   state = {
-    currentIndex: 0,
-    currentNum: 22.5,
     firstTouch: 0
   };
 
@@ -18,99 +15,110 @@ class Location extends PureComponent {
 
   componentDidMount() {
     this.setInitialPos();
+    window.addEventListener("touchstart", this.handleTouchStart);
+    window.addEventListener("touchend", this.handleTouchEnd);
     window.addEventListener("resize", this.setInitialPos);
   };
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return nextProps.locations.length !== this.props.locations.length;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.locations.length !== prevProps.locations.length) {
-      this.moveToLastLocation();
+      this.moveToLastLocation(this.props.locations.length - 1);
     }
   };
 
   componentWillUnmount() {
+    window.removeEventListener("touchstart", this.handleTouchStart);
+    window.removeEventListener("touchend", this.handleTouchEnd);
     window.removeEventListener("resize", this.setInitialPos);
   };
 
   // new data handler =================================================
 
   moveToLastLocation = () => { // move to last location that was added to the locations list
-    const locationCity = document.querySelector(".locations__city");
-    const locationsList = document.querySelector(".locations");
-    const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
-    const calcMoveBy = mainNum * (this.props.locations.length - 1) - ((100 - mainNum) / 2);
-    this.setState(() => ({
-      currentIndex: this.props.locations.length - 1,
-      currentNum: -calcMoveBy
-    }));
+    const index = this.props.locations.length - 1;
+    this.moveLocationSlider(index);
   };
 
   // click handlers =================================================
   setInitialPos = () => {
     // set initial slider location dynamically dependent on css value
+    const index = this.getCurrentActiveIndex();
+    this.moveLocationSlider(index);
+  };
+
+  handleSelectedLocation = (location, index) => { // set selected location by id
+    const { id, geometry } = location;
+    this.props.dispatch(setSelectedLocation(id));
+    this.props.dispatch(getCurrentCityWeather(geometry));
+    this.moveLocationSlider(index);
+  };
+  // style handlers =================================================
+  moveLocationSlider = (index) => { // move slider depending on the index provided
+    const slider = document.querySelector(".locations__container");
     const locationCity = document.querySelector(".locations__city");
     const locationsList = document.querySelector(".locations");
     const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
     const initialNum = (100 - mainNum) / 2;
-    if(this.state.currentIndex === 0){
-      this.setState(() => ({currentNum: initialNum}));
-    }else { // change location container when window is resized
-      this.setState(() => ({currentNum: initialNum - (mainNum * this.state.currentIndex)}));
+    const num = initialNum - (mainNum * index);
+    const moveBy = `translate3d(${num}%, 0, 0)`;
+    this.repositionClass(index);
+    slider.style.transform = moveBy.toString();
+  };
+  repositionClass = (index) => { // reposition active-city class for styling
+    const locations = document.getElementsByClassName("locations__city");
+    for (let i = 0; i < locations.length; i++) {
+      if (i === index) {
+        locations[i].classList.add("active-city");
+      } else {
+        locations[i].classList.remove("active-city");
+      }
     }
   };
-  handleLocationChange = (index) => { // change translate3d upon selected location change
-    const {currentIndex, currentNum} = this.state;
-    const locationCity = document.querySelector(".locations__city");
-    const locationsList = document.querySelector(".locations");
-    //calculate the value the slider will move by (dynamic value dependent on css value)
-    const mainNum = Math.round(locationCity.offsetWidth / locationsList.offsetWidth * 100);
-    if (currentIndex < index) {
-      this.setState(() => ({currentNum: currentNum - mainNum}));
-    } else if (currentIndex > index) {
-      this.setState(() => ({currentNum: currentNum + mainNum}));
+  getCurrentActiveIndex = () => { // get current active location on slider
+    const locations = document.getElementsByClassName("locations__city");
+    let index = 0;
+    for (let i = 0; i < locations.length; i++) {
+      if (locations[i].classList.contains("active-city")) {
+        index = i;
+        break;
+      }
     }
-  };
-
-  handleSelectedLocation = (location, index) => { // set selected location by id
-    const {id, geometry} = location;
-    this.props.dispatch(setSelectedLocation(id));
-    this.props.dispatch(getCurrentCityWeather(geometry));
-    this.setState(() => ({currentIndex: index}));
-    this.handleLocationChange(index);
+    return index;
   };
   // touch handlers =================================================
   handleTouchStart = (e) => {
     const firstTouch = e.changedTouches[0].clientX;
-    this.setState(() => ({firstTouch}));
+    this.setState(() => ({ firstTouch }));
   };
-  handleTouchEnd = (e) => {
-    const {firstTouch, currentIndex} = this.state;
-    const {locations} = this.props;
+  handleTouchEnd = (e) => { // change location by touch on mobile devices
+    const { firstTouch } = this.state;
+    const { locations } = this.props;
     const currentTouch = e.changedTouches[0].clientX;
-    if (firstTouch > currentTouch) {
-      if (locations[currentIndex + 1]) {
-        this.handleSelectedLocation(locations[currentIndex + 1], currentIndex + 1)
+    let index = this.getCurrentActiveIndex();
+    if(currentTouch > firstTouch){
+      if(locations[index - 1]){
+        this.handleSelectedLocation(locations[index - 1], index - 1);
       }
-    } else if (firstTouch < currentTouch) {
-      if (locations[currentIndex - 1]) {
-        this.handleSelectedLocation(locations[currentIndex - 1], currentIndex - 1)
+    }else if (currentTouch < firstTouch) {
+      if(locations[index + 1]){
+        this.handleSelectedLocation(locations[index + 1], index + 1);
       }
     }
   };
 
   render() {
     return (
-      <div className="locations"
-           onTouchStart={this.handleTouchStart}
-           onTouchEnd={this.handleTouchEnd}
-      >
-        <div className="locations__container"
-             style={{transform: `translate3d(${this.state.currentNum}%, 0, 0)`}}
-        >
+      <div className="locations">
+        <div className="locations__container">
           {
             this.props.locations.length > 0 &&
             this.props.locations.map((location, index) =>
               <div
-                className={`locations__city ${this.state.currentIndex === index ? "active-city" : ""}`}
+                className={`locations__city ${0 === index ? "active-city" : ""}`}
                 key={shortid()}
                 onClick={() => this.handleSelectedLocation(location, index)}
               >

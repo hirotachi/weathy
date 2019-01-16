@@ -7,45 +7,22 @@ import Weather from "./weather/Weather";
 import NetworkError from "./network/NetworkError";
 
 
-class Homepage extends Component {
-  state = {
-    mobile: false
-  };
-
-  // componentDidMount() {
-    // window.addEventListener("resize", this.checkMedia);
-    // this.checkMedia();
-  // };
-
-  // componentWillUnmount() {
-    // window.removeEventListener("resize", this.checkMedia);
-  // };
-
-
-  // checkMedia = () => { // change state when window is resized
-  //   const mobile = window.matchMedia("(max-width: 480px)").matches;
-  //   this.setState(() => ({ mobile }));
-  // };
-
-  render() {
-    return (
-      <div>
-        {
-          this.props.networkError ?
-            <NetworkError/> :
-            <React.Fragment>
-              <Header router={this.props}/>
-              <div>
-                <Date/>
-                <Location/>
-              </div>
-              <Weather/>
-            </React.Fragment>
-        }
-      </div>
-    );
-  }
-}
+const Homepage = (props) => (
+  <div>
+    {
+      props.networkError ?
+        <NetworkError/> :
+        <React.Fragment>
+          <Header router={props}/>
+          <div className="header__sub">
+            <Date/>
+            <Location/>
+          </div>
+          <Weather/>
+        </React.Fragment>
+    }
+  </div>
+);
 
 const mapStateToProps = (state) => {
   return {

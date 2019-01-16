@@ -27,4 +27,13 @@
       font-size: 3vw;
     }
   }
+  &__sub{
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 0;
+    padding: 0;
+    @include minMobile{
+      flex-direction: column;
+    }
+  }
 }
