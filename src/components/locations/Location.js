@@ -178,7 +178,7 @@ class Location extends Component {
                       location.city
                   }
                     </span> :
-                  <span className="location__city--state">{location.state}</span>
+                  <span className="locations__city--state">{location.state}</span>
                 }
               </div>)
           }

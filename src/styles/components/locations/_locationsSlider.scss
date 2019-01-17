@@ -38,7 +38,7 @@
     @include mobileLandscape {
       width: 75%;
     }
-    &--name {
+    &--name, &--state {
       display: inline-block;
       font-weight: bold;
       opacity: .5;
