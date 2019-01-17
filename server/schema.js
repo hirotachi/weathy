@@ -6,6 +6,7 @@ const typeDefs = gql`
         search(query: String!): [Search!]!
         currentWeather(lon: String!, lat:String!): Weather!
         todayWeather(lon: String!, lat: String!): Weather!
+        getBackground(weather: String!, layout: String!): Background!
     }
     type Search {
         id: ID!
@@ -32,6 +33,10 @@ const typeDefs = gql`
       summary: String
       rain: Float
       icon: String
+  }
+  
+  type Background{
+  id: ID!
   }
 `;
 
