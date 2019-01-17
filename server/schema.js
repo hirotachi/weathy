@@ -5,6 +5,7 @@ const typeDefs = gql`
         weather(lon: String!, lat: String!): String!
         search(query: String!): [Search!]!
         currentWeather(lon: String!, lat:String!): Weather!
+        todayWeather(lon: String!, lat: String!): Weather!
     }
     type Search {
         id: ID!
@@ -18,18 +19,19 @@ const typeDefs = gql`
         stateDistrict: String
         geometry: Geometry
         currentWeather: Weather!
+        todayWeather: Weather!
     }
   type Geometry{
       lat: Float
       lon: Float
   }
   type Weather {
-      temperature: Float!
-      humidity: Float!
-      windSpeed: Float!
-      summary: String!
-      rain: Float!
-      icon: String!
+      temperature: Float
+      humidity: Float
+      windSpeed: Float
+      summary: String
+      rain: Float
+      icon: String
   }
 `;
 

@@ -6,7 +6,7 @@ class GifSlider extends Component {
     return (
       <div>
         {/*gifSlider*/}
-        {/*<img src="https://media.giphy.com/media/GuEyvLPXMLhT2/giphy.gif" alt="something"/>*/}
+        <img src="https://media.giphy.com/media/GuEyvLPXMLhT2/giphy.gif" alt="something"/>
       </div>
     );
   }
