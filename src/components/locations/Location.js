@@ -19,6 +19,7 @@ class Location extends Component {
     window.addEventListener("touchstart", this.handleTouchStart);
     window.addEventListener("touchend", this.handleTouchEnd);
     window.addEventListener("resize", this.setInitialPos);
+    window.addEventListener("wheel", this.handleScroll);
   };
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -35,6 +36,8 @@ class Location extends Component {
     window.removeEventListener("touchstart", this.handleTouchStart);
     window.removeEventListener("touchend", this.handleTouchEnd);
     window.removeEventListener("resize", this.setInitialPos);
+    window.removeEventListener("wheel", this.handleScroll);
+    clearTimeout(this.restoreScrollEventhandler);
   };
 
   // new data handler =================================================
@@ -122,7 +125,7 @@ class Location extends Component {
       this.handleDirection("previous");
     }
   };
-
+  // direction handler================================================
   handleDirection = (command) => { // calls slider to move in desired direction
     const { locations } = this.props;
     let index = this.getCurrentActiveIndex();
@@ -136,7 +139,18 @@ class Location extends Component {
       }
     }
   };
-
+  //scroll hander======================================================
+  handleScroll = (e) => { // handle scroll on slider
+    if(e.deltaY > 0){
+      this.handleDirection("previous");
+    }else if (e.deltaY < 0){
+      this.handleDirection("next");
+    }
+    window.removeEventListener("wheel", this.handleScroll);
+    this.restoreScrollEventhandler = setTimeout(() => { // pause the scrolling for performance
+      window.addEventListener("wheel", this.handleScroll);
+    }, 500);
+  };
   render() {
     return (
       <div className="locations">
