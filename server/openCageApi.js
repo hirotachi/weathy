@@ -36,7 +36,32 @@ module.exports = async (query) => {
             });
           }
         });
+
       })
       .catch(err => console.log(err));
-  return result;
+  return duplicateChecker(result);
+};
+
+const duplicateChecker = (mainArray) => { // check is there is duplicate value
+  let filterd = mainArray.filter(item => { // remove location if it doesn't have state and city filled
+    return !(!item.city && !item.state)
+  });
+  let newFilter = [];
+    filterd.map((currentItem) => {
+        let num = filterd.filter(item => { // filter duplicates
+            let cityMatch = true;
+              if(!!currentItem.city && !!item.city){
+                cityMatch = currentItem.city.toLowerCase() === item.city.toLowerCase() ||
+                currentItem.city.toLowerCase().includes(item.city.toLowerCase());
+              }
+            const countryMatch = currentItem.country.toLowerCase() === item.country.toLowerCase();
+            return cityMatch && countryMatch ;
+        });
+      //  check if the current filter duplicates first element is in the newFilter already
+      const existsInArray = newFilter.some(location => location.id === num[0].id);
+      if(!existsInArray && num.length >= 1){
+        newFilter.push(num[0])
+      }
+  });
+    return newFilter;
 };

@@ -29,10 +29,8 @@ class Background extends PureComponent {
     if(landscapeM){
       this.setState(() => ({bg: `https://media.giphy.com/media/${desktop}/giphy.${endLink}`}));
     }else if (lowMedia){
-      console.log("lowmedia");
       this.setState(() => ({bg: `https://media.giphy.com/media/${mobile}/giphy.${endLink}`}));
     }else if(highQuery) {
-      console.log("desktop");
       this.setState(() => ({bg: `https://media.giphy.com/media/${desktop}/giphy.${endLink}`}));
     }
   };
