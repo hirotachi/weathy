@@ -28,7 +28,7 @@ const resolvers = {
     },
     getBackground(parent, { weather }) {
       const sectionMatch = backgrounds.find(bg => { // get the backgrounds weather section
-        return bg.weather.toLowerCase().includes(weather.toLowerCase());
+        return weather.toLowerCase().includes(bg.weather.toLowerCase());
       });
       if (!sectionMatch) { // default return if there is no such weather in backgrounds variable
         const randomMobileIndex = Math.floor(Math.random() * sectionMatch.mobileGifs.length);

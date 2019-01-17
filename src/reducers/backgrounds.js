@@ -1,7 +1,12 @@
+const backgroundsDefaultState = {
+  mobile: "",
+  desktop: ""
+};
+
 export default (state = [], action) => {
   switch(action.type){
-    case "ADD_BACKGROUND":
-      return [...state, action.bg];
+    case "SET_CURRENT_BG":
+      return action.bg;
     default :
       return state;
   }

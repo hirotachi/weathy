@@ -1,5 +1,6 @@
 import {client, setNetworkError} from "./search";
 import gql from "graphql-tag";
+import { getCurrentBg } from "./backgrounds";
 
 
 export const getCurrentCityWeather = ({lon, lat}) => { // get api weather info and fill required vars
@@ -17,7 +18,12 @@ export const getCurrentCityWeather = ({lon, lat}) => { // get api weather info a
               }
           }
       `
-    }).then(({data}) => dispatch(setCurrentCityWeather(data.currentWeather)))
+    }).then(({data}) => {
+      const {currentWeather} = data;
+      const {icon} = currentWeather;
+      dispatch(getCurrentBg(icon)); // gets the current background
+      dispatch(setCurrentCityWeather(data.currentWeather))
+    })
     .catch(err => dispatch(setNetworkError()))
   }
 };
