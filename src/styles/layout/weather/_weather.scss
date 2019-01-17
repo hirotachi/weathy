@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: 0 2rem;
   justify-content: flex-end;
+  z-index: 5;
   @include desktop{
     flex-direction: row;
     width: 70%;
@@ -31,7 +32,6 @@
     flex-direction: column;
     justify-content: flex-end;
     min-height: 40%;
-    z-index: 5;
     @include tablet{
       margin-bottom: 0;
     }
