@@ -19,22 +19,26 @@ class Background extends PureComponent {
 
   // ===========================================================
 
-  setSelectedBg = () => { // determine
+  setSelectedBg = (error = false) => { // determine
     const {desktop, mobile} = this.props.backgrounds;
     const lowMedia = window.matchMedia("(max-width: 768px)").matches;
     const landscapeM = window.matchMedia(
       "(min-width: 480px) and (max-width: 815px) and (orientation: landscape)").matches;
     const highQuery = window.matchMedia("(min-width: 769px)").matches;
+    const endLink = error ? "gif" : "webp"; // if webp is not working check gif
     if(landscapeM){
-      console.log("landscape")
-      this.setState(() => ({bg: desktop}));
+      this.setState(() => ({bg: `https://media.giphy.com/media/${desktop}/giphy.${endLink}`}));
     }else if (lowMedia){
-      console.log("lowmedia")
-      this.setState(() => ({bg: mobile}));
+      console.log("lowmedia");
+      this.setState(() => ({bg: `https://media.giphy.com/media/${mobile}/giphy.${endLink}`}));
     }else if(highQuery) {
-      console.log("desktop")
-      this.setState(() => ({bg: desktop}));
+      console.log("desktop");
+      this.setState(() => ({bg: `https://media.giphy.com/media/${desktop}/giphy.${endLink}`}));
     }
+  };
+
+  handleImgError = () => { // handle img error
+    this.setSelectedBg(true);
   };
 
   render() {
@@ -42,7 +46,10 @@ class Background extends PureComponent {
       <div className="background">
         {
           this.state.bg &&
-          <img src={`https://media.giphy.com/media/${this.state.bg}/giphy.gif`} alt="bg"/>
+          <img src={this.state.bg}
+               alt="bg"
+               onError={this.handleImgError}
+          />
         }
       </div>
     );

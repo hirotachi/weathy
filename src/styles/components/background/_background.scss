@@ -1,0 +1,15 @@
+.background{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -o-object-fit: cover;
+    opacity: 0;
+    @include prefix(animation, fadeIn .5s ease-in-out forwards);
+  }
+}
