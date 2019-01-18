@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import shortid from "shortid";
-import { setSelectedLocation } from "../../actions/locations";
+import { addLocation, setSelectedLocation } from "../../actions/locations";
 import { getCurrentCityWeather } from "../../actions/weather";
 import CurrentLocation from "./CurrentLocation";
 import { Arrow } from "../icons/icons";
@@ -20,6 +20,7 @@ class Location extends Component {
     window.addEventListener("touchend", this.handleTouchEnd);
     window.addEventListener("resize", this.setInitialPos);
     window.addEventListener("wheel", this.handleScroll);
+    this.getUserLocation();
   };
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -40,6 +41,22 @@ class Location extends Component {
     clearTimeout(this.restoreScrollEventhandler);
   };
 
+  //get user location======================================================
+  getUserLocation = () => { // check if browser support geolocation
+    const {geolocation} = navigator;
+    if(geolocation){
+      this.getCurrentPosition();
+    }
+  };
+  getCurrentPosition = () => { // get's current position and calls store
+    navigator.geolocation.getCurrentPosition(this.handleCurrentPosition, (err) => {
+      console.log(err)
+    }, {enableHighAccuracy: true})
+  };
+  handleCurrentPosition = (currentPos) => {
+    const {latitude, longitude} = currentPos.coords;
+    console.log(latitude, longitude);
+  };
   // new data handler =================================================
 
   moveToLastLocation = () => { // move to last location that was added to the locations list

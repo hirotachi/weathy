@@ -16,7 +16,7 @@ const resolvers = {
       return weatherApi("currently", args);
     },
     todayWeather(parent, args) {
-      console.log(weatherApi("daily", args))
+      return weatherApi("daily", args);
     },
     weather(parent, { lat, lon }) {
       const request = `https://api.darksky.net/forecast/${darkSkyKey}/${lat},${lon}?units=ca`;
@@ -28,7 +28,8 @@ const resolvers = {
     },
     getBackground(parent, { weather }) {
       const sectionMatch = backgrounds.find(bg => { // get the backgrounds weather section
-        return weather.toLowerCase().includes(bg.weather.toLowerCase());
+        return weather.toLowerCase().includes(bg.weather.toLowerCase()) ||
+          bg.weather.toLowerCase().includes(weather.toLowerCase());
       });
       if (!sectionMatch) { // default return if there is no such weather in backgrounds variable
         const randomMobileIndex = Math.floor(Math.random() * sectionMatch.mobileGifs.length);
@@ -45,6 +46,9 @@ const resolvers = {
         desktop: sectionMatch.desktopGifs[randomDesktopIndex],
         mobile: sectionMatch.mobileGifs[randomMobileIndex]
       };
+    },
+    getCurrentLocation(parent, args){
+      return geoLocator(args);
     }
   },
   Search: {
@@ -57,7 +61,6 @@ const resolvers = {
   },
   Weather: {
     background(parent, args) {
-      console.log(parent);
       const sectionMatch = backgrounds.find(bg => { // get the backgrounds weather section
         return parent.icon.toLowerCase().includes(bg.weather.toLowerCase());
       });

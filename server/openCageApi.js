@@ -3,43 +3,26 @@ const uuidv4 = require("uuid/v4");
 
 const openCageKey = process.env.OPEN_CAGE_KEY || require("./apiKeys").openCageKey;
 
-module.exports = async (query) => {
-  const request = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${openCageKey}`;
-  const result = [];
+module.exports = async (query = "", command = "search") => {
+  const requestParams = typeof query === "string" ? query : `${query.lat},${query.lon}`;
+  const request = `https://api.opencagedata.com/geocode/v1/json?q=${requestParams}&key=${openCageKey}`;
+  let finalResult = [];
   await axios.get(request)
       .then(({data}) => {
-        data.results.map(({components, geometry, formatted}) => {
-          const {
-            _type,
-            city,
-            country,
-            country_code: countryCode,
-            postcode,
-            state,
-            region,
-            state_district: stateDistrict
-          } = components;
-          const {lat, lng: lon} = geometry;
-          const type = _type.toLowerCase();
-          if(type === "city" || type === "state_district"){
-            result.push({
-              id: uuidv4(),
-              city,
-              country,
-              countryCode,
-              postcode,
-              state,
-              region,
-              stateDistrict,
-              geometry: {lat, lon},
-              formatted
-            });
-          }
-        });
-
+        if(typeof query === "string"){ // handle result according to command
+          let currentResult = [];
+          data.results.map((result) => {
+            currentResult.push(resultExtractor(result, "search"));
+          });
+          currentResult = currentResult.filter(result => !!result); // remove any empty array item
+          finalResult = duplicateChecker(currentResult); // check for duplicates in the current result
+        }else {
+          // noinspection JSValidateTypes
+          finalResult = resultExtractor(data.results[0], "location");
+        }
       })
       .catch(err => console.log(err));
-  return duplicateChecker(result);
+  return finalResult;
 };
 
 const duplicateChecker = (mainArray) => { // check is there is duplicate value
@@ -64,4 +47,49 @@ const duplicateChecker = (mainArray) => { // check is there is duplicate value
       }
   });
     return newFilter;
+};
+
+const resultExtractor = (result, command) => {
+    const {components, geometry, formatted} = result;
+  const {
+    _type,
+    city,
+    country,
+    country_code: countryCode,
+    postcode,
+    state,
+    region,
+    state_district: stateDistrict
+  } = components;
+  const {lat, lng:lon} = geometry;
+  if(command === "search"){ // return just cities and states if it's a search
+    const type = _type.toLowerCase();
+    if(type === "city" || type === "state_district"){
+      return {
+        id: uuidv4(),
+        city,
+        country,
+        countryCode,
+        postcode,
+        state,
+        region,
+        stateDistrict,
+        geometry: {lat, lon},
+        formatted
+      };
+    }
+  }else if (command === "location"){ // return any type according to geolocation
+    return {
+      id: uuidv4(),
+      city,
+      country,
+      countryCode,
+      postcode,
+      state,
+      region,
+      stateDistrict,
+      geometry: {lat, lon},
+      formatted
+    };
+  }
 };

@@ -7,6 +7,7 @@ const typeDefs = gql`
         currentWeather(lon: String!, lat:String!): Weather!
         todayWeather(lon: String!, lat: String!): Weather!
         getBackground(weather: String!): Background!
+        getCurrentLocation(lat: String!, lon: String!): Search!
     }
     type Search {
         id: ID!
