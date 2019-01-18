@@ -28,7 +28,7 @@ export const getCurrentCityWeather = ({lon, lat}) => { // get api weather info a
   }
 };
 
-const setCurrentCityWeather = (weather) => {
+export const setCurrentCityWeather = (weather) => {
   return {
     type: "SET_CURRENT_CITY_WEATHER",
     weather

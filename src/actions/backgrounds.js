@@ -20,7 +20,7 @@ export const getCurrentBg = (weather) => {
   }
 };
 
-const setCurrentBg = (bg) => {
+export const setCurrentBg = (bg) => {
   return {
     type: "SET_CURRENT_BG",
     bg

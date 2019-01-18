@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import shortid from "shortid";
-import { addLocation, setSelectedLocation } from "../../actions/locations";
+import { addLocation, getCurrentLocation, setSelectedLocation } from "../../actions/locations";
 import { getCurrentCityWeather } from "../../actions/weather";
 import CurrentLocation from "./CurrentLocation";
 import { Arrow } from "../icons/icons";
@@ -55,7 +55,7 @@ class Location extends Component {
   };
   handleCurrentPosition = (currentPos) => {
     const {latitude, longitude} = currentPos.coords;
-    console.log(latitude, longitude);
+    this.props.dispatch(getCurrentLocation(latitude, longitude));
   };
   // new data handler =================================================
 
