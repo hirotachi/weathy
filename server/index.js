@@ -1,5 +1,7 @@
 const express = require("express");
 const {ApolloServer} = require("apollo-server-express");
+const http = require("http");
+const https = require("https");
 const path = require("path");
 const cors = require("cors");
 
@@ -21,9 +23,16 @@ const port = process.env.PORT || 3000;
 app.get("*", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"))
 });
-app.listen(port, () => {
+
+// http.createServer(app).listen(port, () => {
+//   console.log(`Server listening and graphql on ${server.graphqlPath}`);
+// });
+https.createServer(app).listen(port, () => {
   console.log(`Server listening and graphql on ${server.graphqlPath}`);
 });
+// app.listen(port, () => {
+//   console.log(`Server listening and graphql on ${server.graphqlPath}`);
+// });
 
 
 
