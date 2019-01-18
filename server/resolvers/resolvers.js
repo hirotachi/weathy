@@ -49,6 +49,9 @@ const resolvers = {
     },
     getCurrentLocation(parent, args){
       return geoLocator(args);
+    },
+    checkServer(parent, args){
+      return true;
     }
   },
   Search: {

@@ -14,6 +14,8 @@ export default (state= searchResultDefaultState, action) => {
       return searchResultDefaultState;
     case "SET_NETWORK_ERROR":
       return {...state, networkError: true};
+    case "REMOVE_NETWORK_ERROR":
+      return {...state, networkError: false};
     default:
       return state;
   }

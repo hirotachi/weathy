@@ -17,6 +17,10 @@ class Background extends PureComponent {
     }
   };
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.setSelectedBg);
+  };
+
   // ===========================================================
 
   setSelectedBg = (error = false) => { // determine

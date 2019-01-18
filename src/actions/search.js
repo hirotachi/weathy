@@ -48,5 +48,6 @@ const setCurrentSearch = (data) => {
 };
 
 export const setNetworkError = () => ({ type: "SET_NETWORK_ERROR" });
+export const removeNetWorkError = () => ({type: "REMOVE_NETWORK_ERROR"});
 const setNoResult = () => ({ type: "SET_NO_RESULT" });
 export const clearResult = () => ({ type: "RESET_RESULT" });

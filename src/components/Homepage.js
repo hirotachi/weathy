@@ -9,11 +9,11 @@ import Background from "./Background/Background";
 
 const Homepage = (props) => (
   <div className="homepage">
-    <Background/>
     {
       props.networkError ?
         <NetworkError/> :
         <React.Fragment>
+          <Background/>
           <Header router={props}/>
           <div className="header__sub">
             <Date/>
