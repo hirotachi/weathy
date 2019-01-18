@@ -24,15 +24,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"))
 });
 
-// http.createServer(app).listen(port, () => {
-//   console.log(`Server listening and graphql on ${server.graphqlPath}`);
-// });
-https.createServer(app).listen(port, () => {
+app.listen(port, () => {
   console.log(`Server listening and graphql on ${server.graphqlPath}`);
 });
-// app.listen(port, () => {
-//   console.log(`Server listening and graphql on ${server.graphqlPath}`);
-// });
 
 
 
