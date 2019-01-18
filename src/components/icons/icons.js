@@ -57,3 +57,10 @@ export const Arrow = (props) => (
     </defs>
   </svg>
 );
+
+export const Sun = (props) => (
+  <svg className={!!props.style ? props.style : "icon"} viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <circle className="sun-outer" cx="200" cy="200" r="150"/>
+    <circle className="sun-inner" cx="200" cy="200" r="131"/>
+  </svg>
+);
